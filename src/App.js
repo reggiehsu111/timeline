@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Timeline from './Timeline';
+import CustomForm from './CustomForm';
+import './css/main.css';
+import './css/navbar.css';
+import './css/reset.css';
+import './css/style.css';
+import './css/form.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+    <div>
+      <header style={{height:"15vh"}}>
+        <p style={{fontSize:"5vh", paddingTop: "3%", marginBottom:"0px"}}>
+          Timeline
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <CustomForm />
+      <Timeline />
     </div>
   );
 }
