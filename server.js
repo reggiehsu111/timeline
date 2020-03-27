@@ -38,9 +38,14 @@ app.post('/form-submit-url', function (req, res) {
         const col = db.collection(client_env.colName);
         var query = { "id": req.body.id };
         col.find(query).toArray().then(function(result) {
-            var dict = JSON.parse(JSON.stringify(result[0]));
-            client.close();
-            res.send(dict);
+            console.log(result[0]);
+            if(result[0]===undefined){
+                res.send(null);
+            }else{
+                var dict = JSON.parse(JSON.stringify(result[0]));
+                client.close();
+                res.send(dict);
+            }
         });
       });
 });

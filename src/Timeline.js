@@ -13,13 +13,18 @@ class Timeline extends React.Component{
 			id:0,
 			timelineBlocks: [],
 			show_subtitle: true,
-			json: this.props.json
+			json: this.props.json,
+			key: 0
 		};
 		this.myRef = React.createRef();
 	}
 	componentWillReceiveProps(nextProps){
 	    if(nextProps.json!==this.props.json){
-	      this.setState({...this.state, json :nextProps.json, id: nextProps.json.id });
+	      this.setState({json :nextProps.json, id: nextProps.json.id});
+	    }
+	    if(nextProps.noinfo!==this.props.noinfo){
+	    	console.log("Can't find id");
+	    	this.setState({ show_subtitle: true });
 	    }
 	  }
 	initialize = () => {
@@ -55,8 +60,9 @@ class Timeline extends React.Component{
 			( element.offsetTop <= window.scrollTop+window.height*offset && element.find('.cd-timeline-img').hasClass('is-hidden') ) && element.find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
 		});
 	}
-	changeJson = (newJson) => {
-		this.setState({json: newJson});
+	increment_key = () => {
+		this.state.key ++;
+		return this.state.key;
 	}
 
 	display_timeline_block = () => {
@@ -68,20 +74,25 @@ class Timeline extends React.Component{
 			if (this.state.show_subtitle == true) this.setState({show_subtitle: false});
 			var json = this.state.json;
 			var contactor = json.contactor;
+			this.increment_key();
 			blocks.push(<BasicInfo 
 				information={json.information}
 				health_condition={json.health_condition}
+				close_contactor={contactor.close_contactor}
+				key={this.state.key}
 			/>);
 			for (var i=0; i< contactor.public_area.length; i++){
+				this.increment_key();
 				blocks.push(<Timeline_block 
 					ref={this.myRef} 
 					city={contactor.public_area[i].city}
 					location = {contactor.public_area[i].location}
 					time={contactor.public_area[i].time}
 					transportation={contactor.public_area[i].transportation}
+					key={this.state.key}
 				/>);
 			}
-			console.log(blocks);
+			// console.log(blocks);
 		}
 		return blocks;
 	}

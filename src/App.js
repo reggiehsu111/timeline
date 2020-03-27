@@ -15,7 +15,8 @@ class App extends React.Component {
     this.postForm = this.postForm.bind(this);
     this.state = {
       id: 0,
-      return_json:{}
+      return_json:{},
+      noinfo:false
     };
     this.changeHandler = this.changeHandler.bind(this);
 
@@ -32,13 +33,18 @@ class App extends React.Component {
           "Content-Type": "application/json"
         }
       }).then(function(response) {
-          return response.json();
+            return response.json();
         })
         .then(function(myJson) {
           // console.log(myJson.contactor.public_area);
           currentComponent.setState({return_json: myJson});
-          // this.timeline_element.current.changeJson(myJson);
-        });
+          // currentComponent.timeline_element.current.display_timeline_block();
+        })
+        .catch(
+          (e) => {
+            currentComponent.setState({noinfo: true});
+          }
+          );
    }
 
   changeHandler(event){
@@ -54,7 +60,7 @@ class App extends React.Component {
           </p>
         </header>
         <CustomForm  postForm={this.postForm} changeHandler={this.changeHandler}/>
-        <Timeline json={this.state.return_json} />
+        <Timeline json={this.state.return_json} noinfo={this.state.noinfo}/>
       </div>
     );
   }

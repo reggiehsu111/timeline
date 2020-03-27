@@ -13,7 +13,8 @@ class Timeline_block extends React.Component{
 			city: this.props.city,
 			transportation: this.props.transportation,
 			hover: false,
-			expand: false
+			expand: false,
+			key: this.props.key
 		};
 		this.myRef = React.createRef();
 	}
