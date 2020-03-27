@@ -70,8 +70,6 @@ app.post('/form-submit-url', function (req, res) {
 });
 
 app.listen(process.env.PORT || 8080);
-
-
 // time_list: sorted array of time_obj
 // time_obj: {"date": "YYYY-MM-DD", "event": [strings]}
 function get_time(dict){
@@ -129,7 +127,7 @@ function get_summary1(dict) {
     if (chronic.length != 0) {
         para += `該案患有${chronic[0].name}`;
         for (idx = 1; idx < chronic.length; idx++) { 
-            para += `、${chronic[idx]}`;
+            para += `、${chronic[idx].name}`;
         } 
         para += "。";
     }
@@ -242,3 +240,4 @@ function check_and_insert(time_obj, time_list) {
         time_list.push(time_obj);
     }
 }
+
