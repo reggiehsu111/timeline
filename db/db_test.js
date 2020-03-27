@@ -22,6 +22,12 @@ client.connect(function(err) {
         time_info.forEach(function (val, idx) {
             console.log(idx, val);
         });
+        var summary_part1 = get_summary1(dict);
+        var summary_part2 = get_summary2(time_info);
+        var summary_part3 = get_summary3(dict);
+        console.log(summary_part1);
+        console.log(summary_part2);
+        console.log(summary_part3);
     });
 
   });
@@ -44,6 +50,78 @@ function get_time(dict){
         }
     });
     return time_list;
+}
+
+function get_summary1(dict) {
+    var id = dict.id;
+    var gender = dict.information.gender;
+    var nationality = dict.information.nationality;
+    var occupation = dict.information.occupation;
+    var pregnant = dict.information.pregnant_week;
+    var married = dict.information.married;
+    var chronic = dict.health_condition.chronic_disease;
+
+    switch(gender) {
+        case 'f':
+            gender = "女性";
+            break;
+        case 'm':
+            gender = "男性";
+            break;
+        default:
+            gender = "";
+            break;
+    }
+
+    if (pregnant > 0) {
+        pregnant = `懷胎${pregnant}月`;
+    } else {
+        pregnant = "";
+    }
+
+    if (married) {
+        married = "已婚";
+    } else {
+        married = "未婚";
+    }
+
+    var para = `案例${id}，${gender}，${nationality}籍，現職為${occupation}，${married}${pregnant}。`;
+
+    if (chronic.length != 0) {
+        para += `該案患有${chronic[0].name}`;
+        for (idx = 1; idx < chronic.length; idx++) { 
+            para += `、${chronic[idx]}`;
+        } 
+        para += "。";
+    }
+    return para;
+}
+
+function get_summary2(time_list) {
+    var para = "本案例近況如下所述：";
+    for (idx = 0; idx < time_list.length; idx++) { 
+        para += `${time_list[idx].date}，`;
+        var event = time_list[idx].event;
+        para += `${event[0]}`;
+        for(j = 1; j< event.length; j++) {
+            para += `、${event[j]}`;
+        }
+        para += '。';
+    } 
+    return para;
+}
+
+function get_summary3(dict) {
+    var close_contact = dict.contactor.close_contactor;
+    var para = ";"
+    if (close_contact.length != 0) {
+        para = "本案例近期接觸過：";
+        for (idx = 0; idx < close_contact.length; idx++) {
+            group = close_contact[idx];
+            para += `${group.type}${group.number}名，其中${group.symptom_count}人有不適症狀、${group.fever_count}人發燒。`;
+        }
+    }
+    return para;
 }
 
 function parse_information (time_list, dict) {
