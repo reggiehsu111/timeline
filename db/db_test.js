@@ -14,12 +14,14 @@ client.connect(function(err) {
     console.log("Connected correctly to server");
     const db = client.db(dbName);
     const col = db.collection(colName);
-    var query = { "id": "00000000" };
+    var query = { "id": "00000001" };
     col.find(query).toArray().then(function(result) {
         var dict = JSON.parse(JSON.stringify(result[0]));
         client.close();
         var time_info = get_time(dict);
-        console.log(time_info);
+        time_info.forEach(function (val, idx) {
+            console.log(idx, val);
+        });
     });
 
   });
@@ -33,7 +35,14 @@ function get_time(dict){
     parse_health_condition(time_list, dict);
     parse_source(time_list, dict);
     parse_contactor(time_list, dict);
-    time_list.sort(function(a, b){return a.date > b.date;});
+    time_list.sort(function(a, b){ 
+        switch (a.date > b.date) {
+            case true:
+                return 1;
+            default:
+                return -1;
+        }
+    });
     return time_list;
 }
 
@@ -77,11 +86,32 @@ function parse_health_condition (time_list, dict) {
 }
 
 function parse_source (time_list, dict) {
-    
+    var source = dict.source;
+    var nation_location = source.abroad.nation_and_location;
+    var contact = source.contact;
+    var time_obj;
+    for (idx = 0; idx < nation_location.length; idx++) {
+        var country = nation_location[idx];
+        var event_string = "在" + country.name + country.type + "至" + country.end_time;
+        time_obj = {"date": country.start_time, "event": [event_string]};
+        check_and_insert(time_obj, time_list);
+    } 
+    if (contact.patient_time_start != "" && contact.patient_time_start != null) {
+        var event_string = "在" + contact.patient_location + "接觸病患";
+        time_obj = {"date": contact.patient_time_start, "event": [event_string]};
+        check_and_insert(time_obj, time_list);
+    }
+
 }
 
 function parse_contactor (time_list, dict) {
-    
+    var public_area = dict.contactor.public_area;
+    for (idx = 0; idx < public_area.length; idx++) {
+        var area = public_area[idx];
+        var event_string = "經由" + area.transportation + "至" + area.city + area.location;
+        var time_obj = {"date": area.time, "event": [event_string]};
+        check_and_insert(time_obj, time_list);
+    } 
 }
 
 function check_and_insert(time_obj, time_list) {
