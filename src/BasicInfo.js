@@ -10,13 +10,16 @@ class BasicInfo extends React.Component{
 			information: this.props.information,
 			health_condition: this.props.health_condition,
 			close_contactor: this.props.close_contactor,
+			summary: this.props.summary,
 			key: this.props.key,
 			expand_info: true,
 			expand_health: false,
 			expand_close_contactor: false,
+			expand_summary:false,
 			hoverInfo: false,
 			hoverHealth: false,
-			hoverContactor: false
+			hoverContactor: false,
+			hoverSummary: false
 		};
 		this.myRef = React.createRef();
 	}
@@ -25,6 +28,9 @@ class BasicInfo extends React.Component{
 	}
 	toggle_expand_health = () => {
 		this.setState({expand_health: !this.state.expand_health});
+	}
+	toggle_expand_summary = () => {
+		this.setState({expand_summary: !this.state.expand_summary});
 	}
 	toggleHoverInfo = () => {
 		this.setState({hoverInfo: !this.state.hoverInfo});
@@ -37,6 +43,9 @@ class BasicInfo extends React.Component{
 	}
 	toggleHoverContactor = () => {
 		this.setState({hoverContactor: !this.state.hoverContactor});
+	}
+	toggleHoverSummary = () => {
+		this.setState({hoverSummary: !this.state.hoverSummary});
 	}
 
 	InsertCloseContactor = () => {
@@ -104,8 +113,27 @@ class BasicInfo extends React.Component{
 		}
 		return blocks;
 	}
+	InsertSummary = () => {
+		var blocks = [];
+		if (this.state.expand_summary){
+			blocks.push(
+				<h1 style={{fontSize: "4vh"}}> Summary</h1>,
+            	<br></br>
+            );
+			for (let [key, value] of Object.entries(this.state.summary)) {
+			  blocks.push(<p className="basic-info-text">{value}</p>)
+			}
+			blocks.push(<br></br>)
+		} else{
+			blocks.push(
+				<h1 style={{fontSize: "4vh"}}>Summary</h1>,
+            	<br></br>
+            );
+		}
+		return blocks;
+	}
 	render(){
-		var infoStyle, healthStyle, contactorStyle;
+		var infoStyle, healthStyle, contactorStyle, summaryStyle;
 		if (this.state.hoverInfo) {
 		     infoStyle = {fontWeight:"bold"};
 		   } else {
@@ -121,6 +149,11 @@ class BasicInfo extends React.Component{
 		   } else {
 		     contactorStyle = {fontWeight:"normal"};
 		   }
+		if (this.state.hoverSummary) {
+		     summaryStyle = {fontWeight:"bold"};
+		   } else {
+		     summaryStyle = {fontWeight:"normal"};
+		   }
 		return(
             <div className="basic-info">
             	<div style={infoStyle} onClick={this.toggle_expand_info} onMouseEnter={this.toggleHoverInfo} onMouseLeave={this.toggleHoverInfo}>
@@ -131,6 +164,9 @@ class BasicInfo extends React.Component{
         		</div>
         		<div style={contactorStyle} onClick={this.toggle_expand_contactor} onMouseEnter={this.toggleHoverContactor} onMouseLeave={this.toggleHoverContactor}>
         			{this.InsertCloseContactor()}
+        		</div>
+        		<div style={summaryStyle} onClick={this.toggle_expand_summary} onMouseEnter={this.toggleHoverSummary} onMouseLeave={this.toggleHoverSummary}>
+        			{this.InsertSummary()}
         		</div>
 	        </div>
 		);

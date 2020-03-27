@@ -11,6 +11,7 @@ class Timeline_block extends React.Component{
 			location: this.props.location,
 			time: this.props.time,
 			city: this.props.city,
+			event: this.props.event,
 			transportation: this.props.transportation,
 			hover: false,
 			expand: false,
@@ -50,20 +51,21 @@ class Timeline_block extends React.Component{
 		   	 blockid = "nothing";
 		     textStyle = {fontWeight:"normal"};
 		   }
-		   if (this.state.expand){
-		   	textStyle = Object.assign({}, textStyle, {height:"20vh", fontSize:"20px"});
-		   }else{
-		   	textStyle = Object.assign({}, textStyle, {height:"10vh"});
-		   }
+		   // if (this.state.expand){
+		   // 	textStyle = Object.assign({}, textStyle, {height:"20vh", fontSize:"20px"});
+		   // }else{
+		   // 	textStyle = Object.assign({}, textStyle, {height:"10vh"});
+		   // }
 		return(
             <div style={textStyle} className="cd-timeline-block" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} onClick={this.handleClick}>
                 <div style={textStyle} className="cd-timeline-img cd-picture">
                     <img src={iconApplication} alt="Picture"></ img>
                 </div>
                 <div style={textStyle} id={blockid} className="cd-timeline-content">
-                    <h4>{this.state.location}</h4>
-                    
-                    {this.expand()}
+                    <h4>{this.state.event}</h4>
+                    <p>
+                    <span className="cd-date">{this.state.time}</span>
+                    </p>
                 </div>
             </div>
 		);

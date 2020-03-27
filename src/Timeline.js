@@ -10,7 +10,8 @@ class Timeline extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			id:0,
+			time_info: this.props.json.time_info,
+			summary: this.props.json.summary,
 			timelineBlocks: [],
 			show_subtitle: true,
 			json: this.props.json,
@@ -20,7 +21,7 @@ class Timeline extends React.Component{
 	}
 	componentWillReceiveProps(nextProps){
 	    if(nextProps.json!==this.props.json){
-	      this.setState({json :nextProps.json, id: nextProps.json.id});
+	      this.setState({json :nextProps.json, time_info: nextProps.json.time_info, summary: nextProps.json.summary});
 	    }
 	    if(nextProps.noinfo!==this.props.noinfo){
 	    	console.log("Can't find id");
@@ -71,28 +72,44 @@ class Timeline extends React.Component{
 			return <div></div>;
 		}
 		else{
+			console.log("inside else");
 			if (this.state.show_subtitle == true) this.setState({show_subtitle: false});
-			var json = this.state.json;
+			var json = this.state.json.dict;
+			console.log("json:",json);
+			console.log("time_info:", this.state.time_info);
 			var contactor = json.contactor;
 			this.increment_key();
 			blocks.push(<BasicInfo 
 				information={json.information}
 				health_condition={json.health_condition}
 				close_contactor={contactor.close_contactor}
+				summary={this.state.summary}
 				key={this.state.key}
 			/>);
-			for (var i=0; i< contactor.public_area.length; i++){
+			// for (var i=0; i< contactor.public_area.length; i++){
+			// 	this.increment_key();
+			// 	blocks.push(<Timeline_block 
+			// 		ref={this.myRef} 
+			// 		city={contactor.public_area[i].city}
+			// 		location = {contactor.public_area[i].location}
+			// 		time={contactor.public_area[i].time}
+			// 		transportation={contactor.public_area[i].transportation}
+			// 		key={this.state.key}
+			// 	/>);
+			// }
+			for (var i=0; i<this.state.time_info.length; i++){
+				console.log(i);
 				this.increment_key();
-				blocks.push(<Timeline_block 
-					ref={this.myRef} 
-					city={contactor.public_area[i].city}
-					location = {contactor.public_area[i].location}
-					time={contactor.public_area[i].time}
-					transportation={contactor.public_area[i].transportation}
-					key={this.state.key}
-				/>);
+				blocks.push(
+					<Timeline_block 
+						ref={this.myRef}
+						time={this.state.time_info[i].date}
+						event={this.state.time_info[i].event}
+						key={this.state.key}
+					/>
+				);
 			}
-			// console.log(blocks);
+			console.log(blocks);
 		}
 		return blocks;
 	}
