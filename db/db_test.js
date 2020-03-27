@@ -90,7 +90,7 @@ function get_summary1(dict) {
     if (chronic.length != 0) {
         para += `該案患有${chronic[0].name}`;
         for (idx = 1; idx < chronic.length; idx++) { 
-            para += `、${chronic[idx]}`;
+            para += `、${chronic[idx].name}`;
         } 
         para += "。";
     }
