@@ -256,6 +256,14 @@ header h1 {
   padding: 1em;
   box-shadow: 0 3px 0 #d7e4ed;
 }
+#cd-timeline-content-hover {
+  position: relative;
+  margin-left: 60px;
+  background: #E7F3F8;
+  border-radius: 0.25em;
+  padding: 1em;
+  box-shadow: 0 3px 0 #d7e4ed;
+}
 .cd-timeline-content:after {
   content: "";
   display: table;
@@ -485,4 +493,17 @@ header h1 {
     -o-transform: translateX(0);
     transform: translateX(0);
   }
+}
+.basic-info{
+  width: 50%;
+  min-height: 10vh;
+  height: auto;
+  background: transparent;
+  padding-bottom: 3vh;
+  padding-top: 0vh;
+  padding-left: 5vw;
+  line-height: 3vh;
+}
+.basic-info-text{
+  font-size: medium;
 }

@@ -1,0 +1,126 @@
+{
+	"_id" : ObjectId("5e7aee171f0651108c9fec4a"),
+	"id" : "00000000",
+	"information" : {
+		"report_date" : "2020-03-25",
+		"name" : "王鈺能",
+		"gender" : "u",
+		"birth_date" : "1998-01-03",
+		"nationality" : "台灣",
+		"address" : "忘了",
+		"occupation" : "學生",
+		"medtitle" : "",
+		"onset" : "2020-03-24",
+		"pregnant_weeks" : 10,
+		"married" : true
+	},
+	"health_condition" : {
+		"symptoms" : [
+			{
+				"name" : "失眠",
+				"date" : "2020-03-20"
+			},
+			{
+				"name" : "咳嗽",
+				"date" : "2020-03-16"
+			},
+			{
+				"name" : "流鼻水",
+				"date" : "2020-03-18"
+			}
+		],
+		"seeing_doctor" : [
+			{
+				"type" : 0,
+				"name" : "耕莘醫院",
+				"date" : "2020-03-21"
+			},
+			{
+				"type" : 1,
+				"name" : "耕莘醫院",
+				"date" : "2020-03-23"
+			}
+		],
+		"chronic_disease" : [
+			{
+				"name" : "高血壓"
+			}
+		]
+	},
+	"source" : {
+		"abroad" : {
+			"nation_and_location" : [
+				{
+					"name" : "日本",
+					"start_time" : "2020-02-14",
+					"end_time" : "2020-02-23",
+					"type" : "旅遊",
+					"companion_num" : 1,
+					"companion_symptoms" : "",
+					"transport_and_flight_code" : "AAAAAAAA"
+				},
+				{
+					"name" : "韓國",
+					"start_time" : "2020-02-23",
+					"end_time" : "2020-02-29",
+					"type" : "旅遊",
+					"companion_num" : 1,
+					"companion_symptoms" : "咳嗽",
+					"transport_and_flight_code" : "BBBBBBBBB"
+				}
+			]
+		},
+		"contact" : {
+			"fever_location" : "日本",
+			"patient_location" : "韓國",
+			"patient_time_start" : "2020-02-28",
+			"patient_time_end" : "2020-02-28",
+			"secretion_time_start" : "",
+			"secretion_time_end" : ""
+		},
+		"activity" : [ ],
+		"animal_contact" : [ ]
+	},
+	"contactor" : {
+		"public_area" : [
+			{
+				"time" : "2020-03-11",
+				"city" : "台北市",
+				"location" : "台灣大學",
+				"transportation" : "腳踏車"
+			},
+			{
+				"time" : "2020-03-12",
+				"city" : "台北市",
+				"location" : "國泰置地廣場",
+				"transportation" : "捷運"
+			}
+		],
+		"close_contactor" : [
+			{
+				"type" : "同事",
+				"apply" : true,
+				"number" : 10,
+				"symptom_count" : 8,
+				"fever_count" : 5,
+				"note" : "嗨"
+			},
+			{
+				"type" : "女友",
+				"apply" : false,
+				"number" : 1,
+				"symptom_count" : 0,
+				"fever_count" : 0,
+				"note" : "幻想出來的"
+			},
+			{
+				"type" : "同學",
+				"apply" : true,
+				"number" : 20,
+				"symptom_count" : 15,
+				"fever_count" : 18,
+				"note" : ""
+			}
+		]
+	}
+}
