@@ -44,7 +44,7 @@ app.post('/form-submit-url', function (req, res) {
             }else{
                 var dict = JSON.parse(JSON.stringify(result[0]));
                 client.close();
-                var time_info = get_time(dict);
+                var [time_info, sick_history_info, activity_info] = get_time(dict);
                 time_info.forEach(function (val, idx) {
                     console.log(idx, val);
                 });
@@ -73,20 +73,26 @@ app.listen(process.env.PORT || 8080);
 // time_list: sorted array of time_obj
 // time_obj: {"date": "YYYY-MM-DD", "event": [strings]}
 function get_time(dict){
-    var time_list = [];
-    parse_information(time_list, dict);
-    parse_health_condition(time_list, dict);
-    parse_source(time_list, dict);
-    parse_contactor(time_list, dict);
-    time_list.sort(function(a, b){ 
-        switch (a.date > b.date) {
-            case true:
-                return 1;
-            default:
-                return -1;
-        }
+    var sick_history_list = [];
+    var activity_list = [];
+    parse_information(sick_history_list, dict);
+    parse_health_condition(sick_history_list, dict);
+    parse_source(activity_list, dict);
+    parse_contactor(activity_list, dict);
+    sick_history_list.sort(function(a, b){ 
+        return list_compare(a,b);
     });
-    return time_list;
+    activity_list.sort(function(a,b){
+        return list_compare(a,b);
+    });
+    var time_list = sick_history_list.slice();
+    for (idx = 0; idx < activity_list.length; idx++) {
+        check_and_insert(activity_list[idx], time_list);
+    }
+    time_list.sort(function(a,b){
+        return list_compare(a,b);
+    });
+    return [time_list, sick_history_list, activity_list];
 }
 
 function get_summary1(dict) {
@@ -241,3 +247,12 @@ function check_and_insert(time_obj, time_list) {
     }
 }
 
+
+function list_compare(a, b) {
+    switch (a.date > b.date) {
+        case true:
+            return 1;
+        default:
+            return -1;
+    }
+}
