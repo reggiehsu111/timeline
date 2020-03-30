@@ -49,7 +49,10 @@ app.post('/form-submit-url', function (req, res) {
                     console.log(idx, val);
                 });
                 var summary_part1 = get_summary1(dict);
-                var summary_part2 = get_summary2(sick_history_list, activity_list);
+                var summary_part2 = {   
+                                        sick_history_info: sick_history_info, 
+                                        activity_info: activity_info
+                                    };
                 var summary_part3 = get_summary3(dict);
                 console.log(summary_part1);
                 console.log(summary_part2);
