@@ -4,9 +4,9 @@
 	"information" : {
 		"report_date" : "2020-03-25",
 		"name" : "王鈺能",
-		"gender" : "u",
+		"gender" : "男",
 		"birth_date" : "1998-01-03",
-		"nationality" : "台灣",
+		"nationality" : "其他，國籍：日本",
 		"address" : "忘了",
 		"occupation" : "學生",
 		"medtitle" : "",
@@ -31,12 +31,12 @@
 		],
 		"seeing_doctor" : [
 			{
-				"type" : 0,
+				"type" : "門診",
 				"name" : "耕莘醫院",
 				"date" : "2020-03-21"
 			},
 			{
-				"type" : 1,
+				"type" : "急診",
 				"name" : "耕莘醫院",
 				"date" : "2020-03-23"
 			}
@@ -48,49 +48,74 @@
 		]
 	},
 	"source" : {
-		"abroad" : {
-			"nation_and_location" : [
-				{
-					"name" : "日本",
-					"start_time" : "2020-02-14",
-					"end_time" : "2020-02-23",
-					"type" : "旅遊",
-					"companion_num" : 1,
-					"companion_symptoms" : "",
-					"transport_and_flight_code" : "AAAAAAAA"
-				},
-				{
-					"name" : "韓國",
-					"start_time" : "2020-02-23",
-					"end_time" : "2020-02-29",
-					"type" : "旅遊",
-					"companion_num" : 1,
-					"companion_symptoms" : "咳嗽",
-					"transport_and_flight_code" : "BBBBBBBBB"
-				}
-			]
-		},
-		"contact" : {
-			"fever_location" : "日本",
-			"patient_location" : "韓國",
-			"patient_time_start" : "2020-02-28",
-			"patient_time_end" : "2020-02-28",
-			"secretion_time_start" : "",
-			"secretion_time_end" : ""
-		},
-		"activity" : [ ],
-		"animal_contact" : [ ]
+		"nation_and_location" : [
+			{
+				"name" : "日本",
+				"start_date" : "2020-02-14",
+				"end_date" : "2020-02-23",
+				"type" : "旅遊",
+				"companion_num" : 1,
+				"companion_symptoms" : "",
+				"transport_and_flight_code" : "AAAAAAAA"
+			},
+			{
+				"name" : "韓國",
+				"start_date" : "2020-02-23",
+				"end_date" : "2020-02-29",
+				"type" : "旅遊",
+				"companion_num" : 1,
+				"companion_symptoms" : "咳嗽",
+				"transport_and_flight_code" : "BBBBBBBBB"
+			}
+		],
+		"contact_fever" : [ 
+			{
+				"name" : "其他：國泰置地廣場",
+				"start_date" : "2020-03-08",
+				"end_date" : "2020-03-16"
+			}
+		],
+		"contact_patient" : [
+			{
+				"name" : "同處工作",
+				"start_date" : "2020-03-04",
+				"end_date" : "2020-03-17"
+			}
+		],
+		"contact_secretion" : [
+			{
+				"name" : "其他：台灣大公園",
+				"start_date" : "2020-02-23",
+				"end_date" : "2020-03-10"
+			},
+			{
+				"name" : "同住",
+				"start_date" : "2020-02-23",
+				"end_date" : "2020-03-10"
+			},
+			{
+				"name" : "醫療院所",
+				"start_date" : "2020-02-23",
+				"end_date" : "2020-03-10"
+			}
+		],
+		"market" : "",
+		"bird" : "是：肯德基",
+		"shamble" : "",
+		"other" : ""
 	},
 	"contactor" : {
 		"public_area" : [
 			{
-				"time" : "2020-03-11",
+				"start_date" : "2020-03-11",
+				"end_date" : "2020-03-18",
 				"city" : "台北市",
 				"location" : "台灣大學",
 				"transportation" : "腳踏車"
 			},
 			{
-				"time" : "2020-03-12",
+				"start_date" : "2020-03-12",
+				"end_date" : "2020-03-23",
 				"city" : "台北市",
 				"location" : "國泰置地廣場",
 				"transportation" : "捷運"
@@ -107,7 +132,6 @@
 			},
 			{
 				"type" : "女友",
-				"apply" : false,
 				"number" : 1,
 				"symptom_count" : 0,
 				"fever_count" : 0,
@@ -115,7 +139,6 @@
 			},
 			{
 				"type" : "同學",
-				"apply" : true,
 				"number" : 20,
 				"symptom_count" : 15,
 				"fever_count" : 18,
