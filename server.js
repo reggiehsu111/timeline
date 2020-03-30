@@ -49,7 +49,7 @@ app.post('/form-submit-url', function (req, res) {
                     console.log(idx, val);
                 });
                 var summary_part1 = get_summary1(dict);
-                var summary_part2 = get_summary2(time_info);
+                var summary_part2 = get_summary2(sick_history_list, activity_list);
                 var summary_part3 = get_summary3(dict);
                 console.log(summary_part1);
                 console.log(summary_part2);
@@ -120,25 +120,35 @@ function get_summary1(dict) {
     var para = `案例${id}，${gender}，${nationality}，現職為${occupation}，${married}${pregnant}。`;
 
     if (chronic.length != 0) {
-        para += `該案患有${chronic[0].name}`;
+        para += `該案患有${chronic[0].replace("其他，說明：", "")}`;
         for (var i = 1; i < chronic.length; i++) { 
-            para += `、${chronic[i].name}`;
+            para += `、${chronic[i].replace("其他，說明：", "")}`;
         } 
         para += "。";
     }
     return para;
 }
 
-function get_summary2(time_list) {
-    var para = "本案例近況如下所述：";
-    for (var i = 0; i < time_list.length; i++) { 
-        para += `${time_list[i].date}，`;
-        var event = time_list[i].event;
+function get_summary2(sick_list, activity_list) {
+    var para = "============== 病程史 ==============\n";
+    for (var i = 0; i < sick_list.length; i++) { 
+        para += `${sick_list[i].date}： `;
+        var event = sick_list[i].event;
         para += `${event[0]}`;
         for(var j = 1; j< event.length; j++) {
             para += `、${event[j]}`;
         }
-        para += '。';
+        para += '。\n';
+    } 
+    para += "\n============== 活動史 ==============\n";
+    for (var i = 0; i < activity_list.length; i++) { 
+        para += `${activity_list[i].date}： `;
+        var event = activity_list[i].event;
+        para += `${event[0]}`;
+        for(var j = 1; j< event.length; j++) {
+            para += `、${event[j]}`;
+        }
+        para += '。\n';
     } 
     return para;
 }
@@ -172,11 +182,11 @@ function parse_health_condition (time_list, dict) {
     var see_doc = h_cond.seeing_doctor;
     var time_obj;
     for (var i = 0; i < symptom.length; i++) { 
-        time_obj = {"date": symptom[i].date, "event": [symptom[i].name]};
+        time_obj = {"date": symptom[i].date, "event": [symptom[i].name.replace("其他：", "")]};
         check_and_insert(time_obj, time_list);
     } 
     for (var i = 0; i < see_doc.length; i++) { 
-        time_obj = {"date": see_doc[i].date, "event": [see_doc[i].name+see_doc[i].type]};
+        time_obj = {"date": see_doc[i].date, "event": [see_doc[i].name.replace("其他：", "")+see_doc[i].type]};
         check_and_insert(time_obj, time_list);
     } 
 }
@@ -190,7 +200,7 @@ function parse_source (time_list, dict) {
     var time_obj;
     for (var i = 0; i < nation_location.length; i++) {
         var country = nation_location[i];
-        var event_string = "在" + country.name + country.type + "至" + country.end_date;
+        var event_string = "在" + country.nation + country.type + "至" + country.end_date;
         time_obj = {"date": country.start_date, "event": [event_string]};
         check_and_insert(time_obj, time_list);
     }

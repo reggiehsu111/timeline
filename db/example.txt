@@ -1,6 +1,6 @@
 {
-	"_id" : ObjectId("5e7aee171f0651108c9fec4a"),
-	"id" : "00000000",
+	"_id" : ObjectId("5e8151cbc852141084d22797"),
+	"id" : "00000002",
 	"information" : {
 		"report_date" : "2020-03-25",
 		"name" : "王鈺能",
@@ -12,7 +12,7 @@
 		"medtitle" : "",
 		"onset" : "2020-03-24",
 		"pregnant_weeks" : 10,
-		"married" : true
+		"married" : "已婚"
 	},
 	"health_condition" : {
 		"symptoms" : [
@@ -42,15 +42,15 @@
 			}
 		],
 		"chronic_disease" : [
-			{
-				"name" : "高血壓"
-			}
+			"高血壓",
+			"心臟病",
+			"肥胖"
 		]
 	},
 	"source" : {
 		"nation_and_location" : [
 			{
-				"name" : "日本",
+				"nation" : "日本",
 				"start_date" : "2020-02-14",
 				"end_date" : "2020-02-23",
 				"type" : "旅遊",
@@ -59,7 +59,7 @@
 				"transport_and_flight_code" : "AAAAAAAA"
 			},
 			{
-				"name" : "韓國",
+				"nation" : "韓國",
 				"start_date" : "2020-02-23",
 				"end_date" : "2020-02-29",
 				"type" : "旅遊",
@@ -68,7 +68,7 @@
 				"transport_and_flight_code" : "BBBBBBBBB"
 			}
 		],
-		"contact_fever" : [ 
+		"contact_fever" : [
 			{
 				"name" : "其他：國泰置地廣場",
 				"start_date" : "2020-03-08",
@@ -132,6 +132,7 @@
 			},
 			{
 				"type" : "女友",
+				"apply" : false,
 				"number" : 1,
 				"symptom_count" : 0,
 				"fever_count" : 0,
@@ -139,6 +140,7 @@
 			},
 			{
 				"type" : "同學",
+				"apply" : true,
 				"number" : 20,
 				"symptom_count" : 15,
 				"fever_count" : 18,
