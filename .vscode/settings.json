@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/8b1d3e5c-88a0-4d77-b9e1-35dfb845929d/resourceGroups/Wuhan_Virus/providers/Microsoft.Web/sites/TimelineWebApp",
+    "appService.deploySubpath": ""
+}
