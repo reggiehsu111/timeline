@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.6",
+    "nodemon": "^2.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"

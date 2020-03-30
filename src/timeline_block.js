@@ -48,7 +48,7 @@ class Timeline_block extends React.Component{
 		   	 blockid = "cd-timeline-content-hover"
 		     textStyle = {fontWeight:"bold"};
 		   } else {
-		   	 blockid = "nothing";
+		   	 blockid = "cd-timeline-content";
 		     textStyle = {fontWeight:"normal"};
 		   }
 		   // if (this.state.expand){
