@@ -42,6 +42,15 @@ class Timeline_block extends React.Component{
                     <br></br>]
 		}
 	}
+	insertEvent = () => {
+		var blocks = [];
+		for (var i=0; i<this.state.event.length; i++){
+				blocks.push(
+					<h4>{this.state.event[i]}</h4>
+				);
+			}
+		return blocks;
+	}
 	render(){
 		var blockid, textStyle;
 		   if (this.state.hover) {
@@ -62,7 +71,7 @@ class Timeline_block extends React.Component{
                     <img src={iconApplication} alt="Picture"></ img>
                 </div>
                 <div style={textStyle} id={blockid} className="cd-timeline-content">
-                    <h4>{this.state.event}</h4>
+                    <h4>{this.insertEvent()}</h4>
                     <p>
                     <span className="cd-date">{this.state.time}</span>
                     </p>

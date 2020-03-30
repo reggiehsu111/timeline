@@ -30,9 +30,11 @@ class Timeline extends React.Component{
 	  }
 	initialize = () => {
 		if(this.state.show_subtitle == true){
-			return <p style={{fontSize:"5vh", paddingTop: "1%", marginBottom:"0px", paddingLeft: "5%"}}>
+			return [<p style={{fontSize:"5vh", paddingTop: "1%", marginBottom:"0px", paddingLeft: "5%"}}>
             Please search by ID
-          </p>;
+          </p>, <p style={{fontSize:"5vh", paddingTop: "1%", marginBottom:"0px", paddingLeft: "5%"}}>
+            (8位數字)
+          </p>];
       	}
 		else{
 			var offset = 0.8;

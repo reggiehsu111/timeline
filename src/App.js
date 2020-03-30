@@ -56,7 +56,7 @@ class App extends React.Component {
       <div>
         <header style={{height:"15vh", paddingTop: "0%", marginTop: "0%"}}>
           <p style={{fontSize:"5vh", paddingTop: "4%", marginBottom:"0px"}}>
-            Timeline
+            嚴重特殊傳染性肺炎疫調報告
           </p>
         </header>
         <CustomForm  postForm={this.postForm} changeHandler={this.changeHandler}/>
