@@ -37,7 +37,7 @@ class App extends React.Component {
         })
         .then(function(myJson) {
           // console.log(myJson.contactor.public_area);
-          currentComponent.setState({return_json: myJson});
+          currentComponent.setState({return_json: myJson, noinfo: false});
           // currentComponent.timeline_element.current.display_timeline_block();
         })
         .catch(
@@ -46,7 +46,15 @@ class App extends React.Component {
           }
           );
    }
-
+   gotinfo = () => {
+    var outputStyle = {marginTop: "5vh", fontSize:"5vh", marginLeft:"3vh"}
+      if (this.state.noinfo){
+        return <p style={outputStyle}>找不到此ID</p>;
+      }
+      else{
+        return <Timeline json={this.state.return_json}/>;
+      }
+   }
   changeHandler(event){
     event.preventDefault();
     this.setState({id: event.target.value});
@@ -60,7 +68,7 @@ class App extends React.Component {
           </p>
         </header>
         <CustomForm  postForm={this.postForm} changeHandler={this.changeHandler}/>
-        <Timeline json={this.state.return_json} noinfo={this.state.noinfo}/>
+        {this.gotinfo()}
       </div>
     );
   }

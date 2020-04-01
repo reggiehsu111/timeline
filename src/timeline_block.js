@@ -53,13 +53,8 @@ class Timeline_block extends React.Component{
 	}
 	render(){
 		var blockid, textStyle;
-		   if (this.state.hover) {
-		   	 blockid = "cd-timeline-content-hover"
-		     textStyle = {fontWeight:"bold"};
-		   } else {
-		   	 blockid = "cd-timeline-content";
-		     textStyle = {fontWeight:"normal"};
-		   }
+		   	blockid = "cd-timeline-content";
+		    textStyle = {fontWeight:"normal"};
 		   // if (this.state.expand){
 		   // 	textStyle = Object.assign({}, textStyle, {height:"20vh", fontSize:"20px"});
 		   // }else{

@@ -23,18 +23,10 @@ class Timeline extends React.Component{
 	    if(nextProps.json!==this.props.json){
 	      this.setState({json :nextProps.json, time_info: nextProps.json.time_info, summary: nextProps.json.summary});
 	    }
-	    if(nextProps.noinfo!==this.props.noinfo){
-	    	console.log("Can't find id");
-	    	this.setState({ show_subtitle: true });
-	    }
 	  }
 	initialize = () => {
 		if(this.state.show_subtitle == true){
-			return [<p style={{fontSize:"5vh", paddingTop: "1%", marginBottom:"0px", paddingLeft: "5%"}}>
-            Please search by ID
-          </p>, <p style={{fontSize:"5vh", paddingTop: "1%", marginBottom:"0px", paddingLeft: "5%"}}>
-            (8位數字)
-          </p>];
+			return [<div></div>];
       	}
 		else{
 			var offset = 0.8;

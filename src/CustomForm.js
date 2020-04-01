@@ -13,11 +13,14 @@ class CustomForm extends React.Component{
 	  }
 
 	render(){
+		var textStyle = {fontSize:"2vh"}
 		return(        
 			<form className="form-style-4" onSubmit={this.props.postForm} onKeyDown={this._handleKeyDown}>
 	          <label >
 	          <span>Search By Id</span><input type="number" name="field2" required={true} onChange={this.props.changeHandler}/>
 	          </label>
+	          <p style={textStyle}>Please search by ID </p>
+	          <p style={textStyle}> (8位數字) </p>
 	          <input type="submit" value="Search" />
 	        </form>
 		);
