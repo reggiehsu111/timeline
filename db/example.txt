@@ -8,11 +8,14 @@
 		"birth_date" : "1998-01-03",
 		"nationality" : "其他，國籍：日本",
 		"address" : "忘了",
+		"contact": "12345678
 		"occupation" : "學生",
 		"medtitle" : "",
 		"onset" : "2020-03-24",
 		"pregnant_weeks" : 10,
-		"married" : "已婚"
+		"married" : "已婚",
+		"inv_date": "2020-03-23",
+		"inv_person": "abc
 	},
 	"health_condition" : {
 		"symptoms" : [
@@ -99,10 +102,15 @@
 				"end_date" : "2020-03-10"
 			}
 		],
-		"market" : "",
-		"bird" : "是：肯德基",
-		"shamble" : "",
-		"other" : ""
+		"infect" : "否",
+		"market" : "是：樂華夜市,2020-03-05",
+		"hospital" : "是：國泰醫院,2020-03-07",
+		"pet" : "否",
+		"bird" : "是：吃雞",
+		"farm" : "否",
+		"shamble" : "是：馬殺雞",
+		"wild" : "否",
+		"other" : "否"
 	},
 	"contactor" : {
 		"public_area" : [

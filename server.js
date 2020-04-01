@@ -6,6 +6,7 @@ const { client_env } = require('./environment/environment.js');
 // const {query, client} = require('./db/query_template');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const { transform } = require("./db/Transform");
 
 
 
@@ -57,8 +58,9 @@ app.post('/form-submit-url', function (req, res) {
                 console.log(summary_part1);
                 console.log(summary_part2);
                 console.log(summary_part3);
+                var chinese_dict = to_chinese(dict);
                 const response = {
-                    dict: dict,
+                    dict: chinese_dict,
                     time_info: time_info,
                     summary: {
                         summary_part1: summary_part1,
@@ -99,6 +101,65 @@ function get_time(dict){
         return list_compare(a,b);
     });
     return [time_list, sick_history_list, activity_list];
+}
+
+function to_chinese(dict) {
+
+    var chines_dict = {
+        "id": dict.id, 
+        "information": {}, 
+        "health_condition": {"症狀紀錄": [], "發病期間就醫紀錄": [], "慢性疾病紀錄": []}, 
+        "source": {"出國史": [], "接觸發燒或呼吸道人士": [], "接觸武漢肺炎可能或確診病例": [], "接觸武漢肺炎可能或確診病例分泌物": []}, 
+        "contactor": {"發病起至隔離前是否曾至國內公眾場所或搭乘大眾運輸工具": [], "近距離接觸者": []}};
+    var tmp;
+    
+    for (var key in dict.information) {
+        chines_dict.information[transform.information[key]] = dict.information[key];
+    }
+    tmp = {"symptoms": "症狀紀錄", "seeing_doctor": "發病期間就醫紀錄"}
+    for(var key in dict.health_condition) {
+        if (key === "chronic_disease") {
+            chines_dict.health_condition["慢性疾病紀錄"] = dict.health_condition[key];
+        } else {
+            for(var i = 0; i < dict.health_condition[key].length; i++) {
+                var origin_obj = dict.health_condition[key][i];
+                var trans_obj = {};
+                for(var obj_key in origin_obj) {
+                    trans_obj[transform["health_condition"][key][obj_key]] = origin_obj[obj_key];
+                }
+                chines_dict.health_condition[tmp[key]].push(trans_obj);
+            }
+        }
+    }
+    tmp = {"nation_and_location": "出國史", "contact_fever": "接觸發燒或呼吸道人士", "contact_patient": "接觸武漢肺炎可能或確診病例", "contact_secretion": "接觸武漢肺炎可能或確診病例分泌物"};
+    for(var key in dict.source) {
+        if (!(key in tmp)) {
+            chines_dict.source[transform.source[key]] = dict.source[key];
+        } else {
+            for(var i = 0; i < dict.source[key].length; i++) {
+                var origin_obj = dict.source[key][i];
+                var trans_obj = {};
+                for(var obj_key in origin_obj) {
+                    trans_obj[transform["source"][key][obj_key]] = origin_obj[obj_key];
+                }
+                chines_dict.source[tmp[key]].push(trans_obj);
+            }
+        }
+    }
+
+    tmp = {"close_contactor": "近距離接觸者", "public_area": "發病起至隔離前是否曾至國內公眾場所或搭乘大眾運輸工具"};
+    for(var key in dict.contactor) {
+        for(var i = 0; i < dict.contactor[key].length; i++) {
+            var origin_obj = dict.contactor[key][i];
+            var trans_obj = {};
+            for(var obj_key in origin_obj) {
+                trans_obj[transform["contactor"][key][obj_key]] = origin_obj[obj_key];
+            }
+            chines_dict.contactor[tmp[key]].push(trans_obj);
+        }
+    }
+
+    return chines_dict;
 }
 
 function get_summary1(dict) {
