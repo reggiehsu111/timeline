@@ -49,7 +49,7 @@ class App extends React.Component {
    gotinfo = () => {
     var outputStyle = {marginTop: "5vh", fontSize:"5vh", marginLeft:"3vh"}
       if (this.state.noinfo){
-        return <p style={outputStyle}>找不到此ID</p>;
+        return <p style={outputStyle}>找不到此ID: {this.state.id}</p>;
       }
       else{
         return <Timeline json={this.state.return_json}/>;

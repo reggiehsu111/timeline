@@ -39,26 +39,26 @@ app.post('/form-submit-url', function (req, res) {
         const col = db.collection(client_env.colName);
         var query = { "id": req.body.id };
         col.find(query).toArray().then(function(result) {
-            console.log(result[0]);
             if(result[0]===undefined){
                 res.send(null);
             }else{
                 var dict = JSON.parse(JSON.stringify(result[0]));
                 client.close();
                 var [time_info, sick_history_info, activity_info] = get_time(dict);
-                time_info.forEach(function (val, idx) {
-                    console.log(idx, val);
-                });
+                // time_info.forEach(function (val, idx) {
+                //     console.log(idx, val);
+                // });
                 var summary_part1 = get_summary1(dict);
                 var summary_part2 = {   
                                         sick_history_info: sick_history_info, 
                                         activity_info: activity_info
                                     };
                 var summary_part3 = get_summary3(dict);
-                console.log(summary_part1);
-                console.log(summary_part2);
-                console.log(summary_part3);
+                // console.log(summary_part1);
+                // console.log(summary_part2);
+                // console.log(summary_part3);
                 var chinese_dict = to_chinese(dict);
+                console.log(chinese_dict);
                 const response = {
                     dict: chinese_dict,
                     time_info: time_info,

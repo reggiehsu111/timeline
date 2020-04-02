@@ -9,17 +9,20 @@ class BasicInfo extends React.Component{
 		this.state = {
 			information: this.props.information,
 			health_condition: this.props.health_condition,
-			close_contactor: this.props.close_contactor,
+			contactor: this.props.contactor,
+			source: this.props.source,
 			summary: this.props.summary,
 			key: this.props.key,
 			expand_info: true,
 			expand_health: false,
 			expand_close_contactor: false,
+			expand_source: false,
 			expand_summary:false,
 			hoverInfo: false,
 			hoverHealth: false,
 			hoverContactor: false,
-			hoverSummary: false
+			hoverSummary: false,
+			hoverSource: false
 		};
 		this.myRef = React.createRef();
 	}
@@ -29,6 +32,9 @@ class BasicInfo extends React.Component{
 	toggle_expand_health = () => {
 		this.setState({expand_health: !this.state.expand_health});
 	}
+	toggle_expand_source = () => {
+		this.setState({expand_source: !this.state.expand_source});
+	}
 	toggle_expand_summary = () => {
 		this.setState({expand_summary: !this.state.expand_summary});
 	}
@@ -37,6 +43,9 @@ class BasicInfo extends React.Component{
 	}
 	toggleHoverHealth = () => {
 		this.setState({hoverHealth: !this.state.hoverHealth});
+	}
+	toggleHoverSource = () => {
+		this.setState({hoverSource: !this.state.hoverSource});
 	}
 	toggle_expand_contactor = () => {
 		this.setState({expand_close_contactor: !this.state.expand_close_contactor});
@@ -52,19 +61,21 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if (this.state.expand_close_contactor){
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}}> Close Contactor</h1>,
+				<h1 style={{fontSize: "4vh"}}>接觸者調查</h1>,
             	<br></br>
             );
-            for (var i=0; i<this.state.close_contactor.length; i++){
-				for (let [key, value] of Object.entries(this.state.close_contactor[i])) {
-				  blocks.push(<p className="basic-info-text">{key}: {value}</p>)
-				}
-				blocks.push(<br></br>);
+			for (let [key, value] of Object.entries(this.state.contactor)) {
+			  blocks.push(<p className="basic-info-text">{key}:</p>)
+				for (var i=0; i<value.length; i++){
+						for (let [key1, value1] of Object.entries(value[i])){
+							blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">   {key1}: {value1}</p>);
+						}
+					}
 			}
 			blocks.push(<br></br>)
 		} else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}}> Close Contactor</h1>,
+				<h1 style={{fontSize: "4vh"}}>接觸者調查</h1>,
             	<br></br>
             );
 		}
@@ -74,7 +85,7 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if (this.state.expand_info){
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}}> Basic Info</h1>,
+				<h1 style={{fontSize: "4vh"}}> 基本資料</h1>,
             	<br></br>
             );
 			for (let [key, value] of Object.entries(this.state.information)) {
@@ -83,7 +94,7 @@ class BasicInfo extends React.Component{
 			blocks.push(<br></br>)
 		} else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}}> Basic Info</h1>,
+				<h1 style={{fontSize: "4vh"}}> 基本資料</h1>,
             	<br></br>
             );
 		}
@@ -93,21 +104,58 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if (this.state.expand_health){
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}}> Health Condition </h1>,
+				<h1 style={{fontSize: "4vh"}}> 臨床狀況 </h1>,
             	<br></br>
             );
+            var count = 0;
 			for (let [key, value] of Object.entries(this.state.health_condition)) {
 				blocks.push(<p className="basic-info-text">{key}:</p>);
-				for (var i=0; i<value.length; i++){
-					for (let [key1, value1] of Object.entries(value[i])){
-						blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">   {key1}: {value1}</p>);
+				count += 1;
+				if(count < 3){
+					for (var i=0; i<value.length; i++){
+						for (let [key1, value1] of Object.entries(value[i])){
+							blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">   {key1}: {value1}</p>);
+						}
 					}
+				}
+				else{
+					blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">{value}</p>);
 				}
 			}
 			blocks.push(<br></br>);
 		}else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}}> Health Condition </h1>,
+				<h1 style={{fontSize: "4vh"}}> 臨床狀況 </h1>,
+            	<br></br>
+            );
+		}
+		return blocks;
+	}
+	InsertSource = () => {
+		var blocks = [];
+		if(this.state.expand_source){
+			blocks.push(
+				<h1 style={{fontSize: "4vh"}}>暴露來源調查</h1>,
+            	<br></br>
+			);
+			var count = 0;
+			for (let [key, value] of Object.entries(this.state.source)) {
+				blocks.push(<p className="basic-info-text">{key}:</p>);
+				count += 1;
+				if(count < 5){
+					for (var i=0; i<value.length; i++){
+						for (let [key1, value1] of Object.entries(value[i])){
+							blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">   {key1}: {value1}</p>);
+						}
+					}
+				}
+				else{
+					blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">{value}</p>);
+				}
+			}
+		}else{
+			blocks.push(
+				<h1 style={{fontSize: "4vh"}}>暴露來源調查</h1>,
             	<br></br>
             );
 		}
@@ -117,7 +165,7 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if (this.state.expand_summary){
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}}> Summary</h1>,
+				<h1 style={{fontSize: "4vh"}}> 概述</h1>,
             	<br></br>
             );
             // console.log(this.state.summary.summary_part2);
@@ -147,14 +195,14 @@ class BasicInfo extends React.Component{
 			blocks.push(<br></br>)
 		} else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}}>Summary</h1>,
+				<h1 style={{fontSize: "4vh"}}>概述</h1>,
             	<br></br>
             );
 		}
 		return blocks;
 	}
 	render(){
-		var infoStyle, healthStyle, contactorStyle, summaryStyle;
+		var infoStyle, healthStyle, contactorStyle, summaryStyle, sourceStyle;
 		if (this.state.hoverInfo) {
 		     infoStyle = {fontWeight:"bold"};
 		   } else {
@@ -175,6 +223,11 @@ class BasicInfo extends React.Component{
 		   } else {
 		     summaryStyle = {fontWeight:"normal"};
 		   }
+		if (this.state.hoverSource) {
+		     sourceStyle = {fontWeight:"bold"};
+		   } else {
+		     sourceStyle = {fontWeight:"normal"};
+		   }
 		return(
             <div className="basic-info">
             	<div style={infoStyle} onClick={this.toggle_expand_info} onMouseEnter={this.toggleHoverInfo} onMouseLeave={this.toggleHoverInfo}>
@@ -185,6 +238,9 @@ class BasicInfo extends React.Component{
         		</div>
         		<div style={contactorStyle} onClick={this.toggle_expand_contactor} onMouseEnter={this.toggleHoverContactor} onMouseLeave={this.toggleHoverContactor}>
         			{this.InsertCloseContactor()}
+        		</div>
+        		<div style={sourceStyle} onClick={this.toggle_expand_source} onMouseEnter={this.toggleHoverSource} onMouseLeave={this.toggleHoverSource}>
+        			{this.InsertSource()}
         		</div>
         		<div style={summaryStyle} onClick={this.toggle_expand_summary} onMouseEnter={this.toggleHoverSummary} onMouseLeave={this.toggleHoverSummary}>
         			{this.InsertSummary()}

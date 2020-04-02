@@ -15,6 +15,7 @@ class Timeline extends React.Component{
 			timelineBlocks: [],
 			show_subtitle: true,
 			json: this.props.json,
+			id: this.props.id,
 			key: 0
 		};
 		this.myRef = React.createRef();
@@ -71,12 +72,12 @@ class Timeline extends React.Component{
 			var json = this.state.json.dict;
 			console.log("json:",json);
 			console.log("time_info:", this.state.time_info);
-			var contactor = json.contactor;
 			this.increment_key();
 			blocks.push(<BasicInfo 
 				information={json.information}
 				health_condition={json.health_condition}
-				close_contactor={contactor.close_contactor}
+				contactor={json.contactor}
+				source={json.source}
 				summary={this.state.summary}
 				key={this.state.key}
 			/>);
