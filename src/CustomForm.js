@@ -17,11 +17,11 @@ class CustomForm extends React.Component{
 		return(        
 			<form className="form-style-4" onSubmit={this.props.postForm} onKeyDown={this._handleKeyDown}>
 	          <label >
-	          <span>Search By Id</span><input type="number" name="field2" required={true} onChange={this.props.changeHandler}/>
+	          <span>依ID搜尋</span><input type="number" name="field2" required={true} onChange={this.props.changeHandler}/>
 	          </label>
-	          <p style={textStyle}>Please search by ID </p>
+	          <p style={textStyle}>請依ID搜尋 </p>
 	          <p style={textStyle}> (8位數字) </p>
-	          <input type="submit" value="Search" />
+	          <input type="submit" value="搜尋" style={{fontSize:"3vh"}}/>
 	        </form>
 		);
 	}
