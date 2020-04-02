@@ -15,6 +15,7 @@ class App extends React.Component {
     this.postForm = this.postForm.bind(this);
     this.state = {
       id: 0,
+      stable_id:0,
       return_json:{},
       noinfo:false
     };
@@ -43,13 +44,14 @@ class App extends React.Component {
         .catch(
           (e) => {
             currentComponent.setState({noinfo: true});
+            this.setState({stable_id:this.state.id});
           }
           );
    }
    gotinfo = () => {
     var outputStyle = {marginTop: "5vh", fontSize:"5vh", marginLeft:"3vh"}
       if (this.state.noinfo){
-        return <p style={outputStyle}>找不到此ID: {this.state.id}</p>;
+        return <p style={outputStyle}>找不到此ID: {this.state.stable_id}</p>;
       }
       else{
         return <Timeline json={this.state.return_json}/>;
