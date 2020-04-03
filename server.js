@@ -37,7 +37,11 @@ app.post('/form-submit-url', function (req, res) {
         console.log("Connected correctly to server");
         const db = client.db(client_env.dbName);
         const col = db.collection(client_env.colName);
-        var query = { "id": req.body.id };
+        var search_type = req.body.search_type;
+        var search_value = req.body.search_value;
+        var query = {};
+        query[search_type] = search_value;
+        console.log("query:", query);
         col.find(query).toArray().then(function(result) {
             if(result[0]===undefined){
                 res.send(null);

@@ -14,22 +14,25 @@ class App extends React.Component {
     // this.handler = this.handler.bind(this);
     this.postForm = this.postForm.bind(this);
     this.state = {
-      id: 0,
+      search_value: 0,
       stable_id:0,
       return_json:{},
-      noinfo:false
+      noinfo:false,
+      search_type: "id"
     };
     this.changeHandler = this.changeHandler.bind(this);
+    this.changeSearchType = this.changeSearchType.bind(this);
 
   }
   postForm(event) {
     // console.log(typeof(this.timeline_element));
     var currentComponent = this;
       event.preventDefault();
-      const data = this.state.id;
+      const data = this.state.search_value;
+      const type = this.state.search_type;
       fetch('/form-submit-url', {
         method: 'POST',
-        body: JSON.stringify({id: data}),
+        body: JSON.stringify({search_type: type, search_value: data}),
         headers: {
           "Content-Type": "application/json"
         }
@@ -59,7 +62,10 @@ class App extends React.Component {
    }
   changeHandler(event){
     event.preventDefault();
-    this.setState({id: event.target.value});
+    this.setState({search_value: event.target.value});
+   }
+   changeSearchType(search_type){
+    this.setState({search_type: search_type});
    }
   render(){
     return (
@@ -69,7 +75,7 @@ class App extends React.Component {
             嚴重特殊傳染性肺炎疫調報告
           </p>
         </header>
-        <CustomForm  postForm={this.postForm} changeHandler={this.changeHandler}/>
+        <CustomForm  postForm={this.postForm} changeHandler={this.changeHandler} changeSearchType = {this.changeSearchType}/>
         {this.gotinfo()}
       </div>
     );
