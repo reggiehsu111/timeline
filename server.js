@@ -228,7 +228,21 @@ function get_summary3(dict) {
         para = "本案例近期接觸過：";
         for (var i = 0; i < close_contact.length; i++) {
             var group = close_contact[i];
-            para += `${group.type}${group.number}名，其中${group.symptom_count}人有不適症狀、${group.fever_count}人發燒。`;
+            para += `${group.type}`
+            if ("number" in group) {
+                para += `${group.number}名`
+            }
+            if ("symptom_count" in group) {
+                para += `，其中${group.symptom_count}人有不適症狀`
+            }
+            if ("fever_count" in group) {
+                para += `、${group.fever_count}人發燒`;
+            }
+            if ("note" in group) {
+                para += `，備註：「${group.note}」`;
+            }
+            para += "。";
+            
         }
     }
     return para;

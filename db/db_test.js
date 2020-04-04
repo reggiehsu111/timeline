@@ -5,7 +5,7 @@ const assert = require('assert');
 // Connection URL
 const url = "";
 const dbName = "health-db";
-const colName = "forms-demo";
+const colName = "forms";
 // Create a new MongoClient
 const client = new MongoClient(url,{useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -15,19 +15,21 @@ client.connect(function(err) {
     console.log("Connected correctly to server");
     const db = client.db(dbName);
     const col = db.collection(colName);
-    var query = { "id": "00000002" };
+    var query = { "id": "00000004" };
     col.find(query).toArray().then(function(result) {
+        console.log(result.length)
         var dict = JSON.parse(JSON.stringify(result[0]));
         client.close();
         var [time_info, sick_history_list, activity_list] = get_time(dict);
+        console.log(sick_history_list, activity_list)
         var summary_part1 = get_summary1(dict);
         var summary_part2 = get_summary2(sick_history_list, activity_list);
         var summary_part3 = get_summary3(dict);
         // console.log(summary_part1);
         // console.log(summary_part2);
-        // console.log(summary_part3);
+        console.log(summary_part3);
         var chinese_dict = to_chinese(dict);
-        console.log(chinese_dict);
+        // console.log(chinese_dict);
     });
 
   });
@@ -182,7 +184,21 @@ function get_summary3(dict) {
         para = "本案例近期接觸過：";
         for (var i = 0; i < close_contact.length; i++) {
             var group = close_contact[i];
-            para += `${group.type}${group.number}名，其中${group.symptom_count}人有不適症狀、${group.fever_count}人發燒。`;
+            para += `${group.type}`
+            if ("number" in group) {
+                para += `${group.number}名`
+            }
+            if ("symptom_count" in group) {
+                para += `，其中${group.symptom_count}人有不適症狀`
+            }
+            if ("fever_count" in group) {
+                para += `、${group.fever_count}人發燒`;
+            }
+            if ("note" in group) {
+                para += `，備註：「${group.note}」`;
+            }
+            para += "。";
+            
         }
     }
     return para;
