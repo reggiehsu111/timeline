@@ -40,41 +40,58 @@ app.post('/form-submit-url', function (req, res) {
         var search_type = req.body.search_type;
         var search_value = req.body.search_value;
         var query = {};
-        query[search_type] = search_value;
-        console.log("query:", query);
-        col.find(query).toArray().then(function(result) {
-            if(result[0]===undefined){
-                res.send(null);
-            }else{
-                var dict = JSON.parse(JSON.stringify(result[0]));
-                client.close();
-                var [time_info, sick_history_info, activity_info] = get_time(dict);
-                // time_info.forEach(function (val, idx) {
-                //     console.log(idx, val);
-                // });
-                var summary_part1 = get_summary1(dict);
-                var summary_part2 = {   
-                                        sick_history_info: sick_history_info, 
-                                        activity_info: activity_info
-                                    };
-                var summary_part3 = get_summary3(dict);
-                // console.log(summary_part1);
-                // console.log(summary_part2);
-                // console.log(summary_part3);
-                var chinese_dict = to_chinese(dict);
-                console.log(chinese_dict);
-                const response = {
-                    dict: chinese_dict,
-                    time_info: time_info,
-                    summary: {
-                        summary_part1: summary_part1,
-                        summary_part2: summary_part2,
-                        summary_part3: summary_part3
+        if (search_type === "id") {
+            query[search_type] = search_value;
+            col.find(query).toArray().then(function(result) {
+                if(result[0]===undefined){
+                    res.send(null);
+                }else{
+                    var dict = JSON.parse(JSON.stringify(result[0]));
+                    client.close();
+                    var [time_info, sick_history_info, activity_info] = get_time(dict);
+                    // time_info.forEach(function (val, idx) {
+                    //     console.log(idx, val);
+                    // });
+                    var summary_part1 = get_summary1(dict);
+                    var summary_part2 = {   
+                                            sick_history_info: sick_history_info, 
+                                            activity_info: activity_info
+                                        };
+                    var summary_part3 = get_summary3(dict);
+                    // console.log(summary_part1);
+                    // console.log(summary_part2);
+                    // console.log(summary_part3);
+                    var chinese_dict = to_chinese(dict);
+                    console.log(chinese_dict);
+                    const response = {
+                        dict: chinese_dict,
+                        time_info: time_info,
+                        summary: {
+                            summary_part1: summary_part1,
+                            summary_part2: summary_part2,
+                            summary_part3: summary_part3
+                        }
                     }
+                    res.send(response);
+                }
+            });
+        }
+        else {
+            var key = `information.${search_type}`;
+            query[key] = search_value;
+            col.find(query).project({ "id": 1, "information.name": 1, "_id": 0 }).toArray().then(function(result) {
+                // all key-value in information can be queried.
+                // e.g. search_type = "gender", search_type = "address_city" ...
+                // result.length is how many objects fit the query.
+                // result[x].id = "00000000"
+                // result[x].information.name = "name"
+                // if db doesn't contain any object fits the query, result = []
+                const response = {
+                    id_names: result,
                 }
                 res.send(response);
-            }
-        });
+            });
+        }
       });
 });
 

@@ -15,22 +15,33 @@ client.connect(function(err) {
     console.log("Connected correctly to server");
     const db = client.db(dbName);
     const col = db.collection(colName);
-    var query = { "id": "00000004" };
-    col.find(query).toArray().then(function(result) {
-        console.log(result.length)
-        var dict = JSON.parse(JSON.stringify(result[0]));
-        client.close();
-        var [time_info, sick_history_list, activity_list] = get_time(dict);
-        console.log(sick_history_list, activity_list)
-        var summary_part1 = get_summary1(dict);
-        var summary_part2 = get_summary2(sick_history_list, activity_list);
-        var summary_part3 = get_summary3(dict);
-        // console.log(summary_part1);
-        // console.log(summary_part2);
-        console.log(summary_part3);
-        var chinese_dict = to_chinese(dict);
-        // console.log(chinese_dict);
-    });
+    var search_type = "gender";
+    var search_value = "狗";
+    var query = {};
+    if (search_type === "id") {
+        query[search_type] = search_value;
+        col.find(query).toArray().then(function(result) {
+            var dict = JSON.parse(JSON.stringify(result[0]));
+            client.close();
+            var [time_info, sick_history_list, activity_list] = get_time(dict);
+            console.log(sick_history_list, activity_list)
+            var summary_part1 = get_summary1(dict);
+            var summary_part2 = get_summary2(sick_history_list, activity_list);
+            var summary_part3 = get_summary3(dict);
+            // console.log(summary_part1);
+            // console.log(summary_part2);
+            console.log(summary_part3);
+            var chinese_dict = to_chinese(dict);
+            // console.log(chinese_dict);
+        });
+    } else {
+        var key = `information.${search_type}`;
+        query[key] = search_value;
+        col.find(query).project({ "id": 1, "information.name": 1, "_id": 0 }).toArray().then(function(result) {
+            console.log(result);
+        });
+    }
+    
 
   });
 
