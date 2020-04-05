@@ -100,7 +100,7 @@ class Timeline extends React.Component{
 					/>
 				);
 			}
-			console.log(blocks);
+			// console.log(blocks);
 		}
 		return blocks;
 	}

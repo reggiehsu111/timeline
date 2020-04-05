@@ -8,20 +8,22 @@ class CustomForm extends React.Component{
 			search_type: "id"
 		};
 		this.information_chinese = {
-			 inv_date: '調查日期',
-		     inv_person: '調查人',
-		     report_date: '通報日期',
-		     name: '姓名',
-		     gender: '生理性別',
-		     birth_date: '出生日期',
-		     nationality: '國籍',
-		     address: '居住地',
-		     contact: '聯絡方式',
-		     occupation: '職業',
-		     med_title: '是否為醫療人員',
-		     onset: '確診日期',
-		     married: '婚姻狀況' 
-		}
+			inv_date: '調查日期',
+			  inv_person: '調查人',
+			  report_date: '通報日期',
+			  name: '姓名',
+			  gender: '生理性別',
+			  birth_date: '出生日期',
+			  nationality: '國籍',
+			  address_city: '居住城市',
+			  address_area: '居住區域',
+			  address_detail: '居住地址',
+			  contact: '聯絡方式',
+			  occupation: '職業',
+			  med_title: '是否為醫療人員',
+			  onset: '確診日期',
+			  married: '婚姻狀況' 
+		};
 		this.input_type = {
 			 id: 'number',
 			 inv_date: 'date',
@@ -31,7 +33,9 @@ class CustomForm extends React.Component{
 		     gender: 'text',
 		     birth_date: 'date',
 		     nationality: 'text',
-		     address: 'text',
+		     address_city: '居住城市',
+			 address_area: '居住區域',
+			 address_detail: '居住地址',
 		     contact: 'number',
 		     occupation: 'text',
 		     med_title: 'text',
@@ -39,7 +43,7 @@ class CustomForm extends React.Component{
 		     married: 'text' 
 		}
 		this.option_style = { fontSize:"2vh" };
-		this.input_style = {fontSize:"2vh"};
+		this.input_style = {fontSize:"2vh", marginLeft:"2vw"};
 	}
 
 	insertOptions = () => {
