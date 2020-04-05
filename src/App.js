@@ -26,19 +26,21 @@ class App extends React.Component {
     this.changeHandler = this.changeHandler.bind(this);
     this.changeSearchType = this.changeSearchType.bind(this);
     this.information_chinese = {
-       inv_date: '調查日期',
-         inv_person: '調查人',
-         report_date: '通報日期',
-         name: '姓名',
-         gender: '生理性別',
-         birth_date: '出生日期',
-         nationality: '國籍',
-         address: '居住地',
-         contact: '聯絡方式',
-         occupation: '職業',
-         med_title: '是否為醫療人員',
-         onset: '確診日期',
-         married: '婚姻狀況' 
+      inv_date: '調查日期',
+        inv_person: '調查人',
+        report_date: '通報日期',
+        name: '姓名',
+        gender: '生理性別',
+        birth_date: '出生日期',
+        nationality: '國籍',
+        address_city: '居住城市',
+        address_area: '居住區域',
+        address_detail: '居住地址',
+        contact: '聯絡方式',
+        occupation: '職業',
+        med_title: '是否為醫療人員',
+        onset: '確診日期',
+        married: '婚姻狀況' 
     };
   }
   incrementTableKey = () => {
@@ -110,6 +112,9 @@ class App extends React.Component {
    changeSearchType(search_type){
     this.setState({search_type: search_type});
    }
+   changeSearchValue = (search_value) => {
+    this.setState({search_value: search_value});
+   }
   // setParent = (search_type, search_value) =>{
   //   this.setState({search_type: search_type, search_value:search_value}, this.postForm);
   // }
@@ -122,7 +127,7 @@ class App extends React.Component {
             嚴重特殊傳染性肺炎疫調報告
           </p>
         </header>
-        <CustomForm  postForm={this.postForm} changeHandler={this.changeHandler} changeSearchType = {this.changeSearchType}/>
+        <CustomForm  postForm={this.postForm} changeHandler={this.changeHandler} changeSearchType = {this.changeSearchType} changeSearchValue = {this.changeSearchValue}/>
         {this.gotinfo()}
       </div>
     );

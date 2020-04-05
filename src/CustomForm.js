@@ -5,7 +5,8 @@ class CustomForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			search_type: "id"
+			search_type: "id",
+			search_value: 0
 		};
 		this.information_chinese = {
 			inv_date: '調查日期',
@@ -30,17 +31,21 @@ class CustomForm extends React.Component{
 		     inv_person: 'text',
 		     report_date: 'date',
 		     name: 'text',
-		     gender: 'text',
+		     gender: 'options',
 		     birth_date: 'date',
 		     nationality: 'text',
-		     address_city: '居住城市',
-			 address_area: '居住區域',
-			 address_detail: '居住地址',
+		     address_city: 'options',
+			 address_area: 'text',
+			 address_detail: 'text',
 		     contact: 'number',
 		     occupation: 'text',
 		     med_title: 'text',
 		     onset: 'date',
 		     married: 'text' 
+		}
+		this.select_options = {
+			gender: ['男','女'],
+			address_city:['臺北市','新北市','基隆市','桃園市','新竹縣','新竹市','苗栗縣','臺中市','南投縣','彰化縣','雲林縣','嘉義縣','嘉義市','臺南市','高雄市','屏東縣','宜蘭縣','花蓮縣','臺東縣','澎湖縣','金門縣','連江縣']
 		}
 		this.option_style = { fontSize:"2vh" };
 		this.input_style = {fontSize:"2vh", marginLeft:"2vw"};
@@ -62,12 +67,39 @@ class CustomForm extends React.Component{
 	 handleSelectChange = (event) => {
 	    this.setState({search_type: event.target.value});
 	    this.props.changeSearchType(event.target.value);
+	    if (this.input_type[event.target.value] == 'options'){
+	    	this.setState({search_value: this.select_options[event.target.value][0]});
+	    	this.props.changeSearchValue(this.select_options[event.target.value][0]);
+	    }
 	  }
+
+	  handleValueChange = (event) => {
+	  	this.setState({search_value: event.target.value});
+	  	this.props.changeSearchValue(event.target.value);
+	  }
+
 
 	submitForm = (e) => {
 		this.props.postForm(e);
 	}
 
+	insertInput = () => {
+		if (this.input_type[this.state.search_type] !== 'options'){
+			return <input type={this.input_type[this.state.search_type]} style={this.input_style} required={true} onChange={this.props.changeHandler}/>
+		}
+		else{
+			var blocks = [];
+			var options = this.select_options[this.state.search_type];
+			for (var i=0; i<options.length; i++){
+				blocks.push(<option value={options[i]} style={this.option_style}>{options[i]}</option>)
+			}
+			return [
+				<select value={this.state.search_value} onChange={this.handleValueChange}>, 
+				{blocks},
+				</select>
+			];
+		}
+	}
 	render(){
 		var textStyle = {fontSize:"2vh"}
 		return(        
@@ -77,7 +109,7 @@ class CustomForm extends React.Component{
 				<option value="id" style={this.option_style}>ID</option>
 				{this.insertOptions()}
 			  </select>
-				<input type={this.input_type[this.state.search_type]} style={this.input_style} required={true} onChange={this.props.changeHandler}/>
+			  	{this.insertInput()}
 	          </label>
 
 	          
