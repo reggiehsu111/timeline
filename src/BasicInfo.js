@@ -170,27 +170,31 @@ class BasicInfo extends React.Component{
             );
             // console.log(this.state.summary.summary_part2);
 			blocks.push(<p className="basic-info-text">{this.state.summary.summary_part1}</p>);
-			blocks.push(<p className="basic-info-text">============== 病程史 ==============</p>);
-			for (var i=0; i<this.state.summary.summary_part2.sick_history_info.length; i++){
-				var sick_info = this.state.summary.summary_part2.sick_history_info[i];
-				blocks.push(
-					<p className="basic-info-text">{sick_info.date}: {sick_info.event}</p>
-				)
-				// console.log(this.state.summary.summary_part2.sick_history_info[i])
+			if (this.state.summary.summary_part2.sick_history_info.length > 0){
+				blocks.push(<p className="basic-info-text">============== 病程史 ==============</p>);
+				for (var i=0; i<this.state.summary.summary_part2.sick_history_info.length; i++){
+					var sick_info = this.state.summary.summary_part2.sick_history_info[i];
+					blocks.push(
+						<p className="basic-info-text">{sick_info.date}: {sick_info.event}</p>
+					)
+					// console.log(this.state.summary.summary_part2.sick_history_info[i])
+				}
 			}
 			blocks.push(<br></br>)
-			blocks.push(<p className="basic-info-text">============== 活動史 ==============</p>);
-			for (var i=0; i<this.state.summary.summary_part2.activity_info.length; i++){
-				var activity_info = this.state.summary.summary_part2.activity_info[i];
-				// console.log("activity_info length:", activity_info.event.legnth)
-				blocks.push(
-					<p className="basic-info-text">{activity_info.date}: {activity_info.event[0]}</p>
-				)
-				for (var j=1; j<activity_info.event.length; j++){
-						blocks.push(<p style={{marginLeft:"7.1em"}} className="basic-info-text">{activity_info.event[j]}</p>);
-					}
+			if (this.state.summary.summary_part2.activity_info.length > 0){
+				blocks.push(<p className="basic-info-text">============== 活動史 ==============</p>);
+				for (var i=0; i<this.state.summary.summary_part2.activity_info.length; i++){
+					var activity_info = this.state.summary.summary_part2.activity_info[i];
+					// console.log("activity_info length:", activity_info.event.legnth)
+					blocks.push(
+						<p className="basic-info-text">{activity_info.date}: {activity_info.event[0]}</p>
+					)
+					for (var j=1; j<activity_info.event.length; j++){
+							blocks.push(<p style={{marginLeft:"7.1em"}} className="basic-info-text">{activity_info.event[j]}</p>);
+						}
+				}
+				blocks.push(<br></br>);
 			}
-			blocks.push(<br></br>);
 			blocks.push(<p className="basic-info-text">{this.state.summary.summary_part3}</p>);
 			blocks.push(<br></br>)
 		} else{

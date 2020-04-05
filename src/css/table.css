@@ -1,0 +1,26 @@
+#select_table {
+  border-collapse: collapse;
+  width: 80%;
+  margin:0 auto;
+  justify-content: center;
+  font-size: 3vh;
+  margin-top:2vh;
+  margin-bottom: 5vh;
+}
+
+#select_table td, #select_table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#select_table tr:nth-child(even){background-color: #f2f2f2;}
+
+#select_table tr:hover {background-color: #ddd;}
+
+#select_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #576E86;
+  color: white;
+}

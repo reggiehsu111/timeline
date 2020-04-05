@@ -43,6 +43,7 @@ app.post('/form-submit-url', function (req, res) {
         if (search_type === "id") {
             query[search_type] = search_value;
             col.find(query).toArray().then(function(result) {
+                console.log(result[0]);
                 if(result[0]===undefined){
                     res.send(null);
                 }else{

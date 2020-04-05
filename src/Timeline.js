@@ -67,11 +67,8 @@ class Timeline extends React.Component{
 			return <div></div>;
 		}
 		else{
-			console.log("inside else");
 			if (this.state.show_subtitle == true) this.setState({show_subtitle: false});
 			var json = this.state.json.dict;
-			console.log("json:",json);
-			console.log("time_info:", this.state.time_info);
 			this.increment_key();
 			blocks.push(<BasicInfo 
 				information={json.information}
@@ -93,7 +90,6 @@ class Timeline extends React.Component{
 			// 	/>);
 			// }
 			for (var i=0; i<this.state.time_info.length; i++){
-				console.log(i);
 				this.increment_key();
 				blocks.push(
 					<Timeline_block 
