@@ -38,8 +38,8 @@ class CustomForm extends React.Component{
 		     onset: 'date',
 		     married: 'text' 
 		}
-		this.option_style = { fontSize:"3vh" };
-		this.input_style = {fontSize:"3vh"};
+		this.option_style = { fontSize:"2vh" };
+		this.input_style = {fontSize:"2vh"};
 	}
 
 	insertOptions = () => {

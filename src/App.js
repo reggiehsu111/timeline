@@ -20,7 +20,8 @@ class App extends React.Component {
       return_json:{},
       noinfo:false,
       search_type: "id",
-      stable_type: "id"
+      stable_type: "id",
+      table_key: 0
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.changeSearchType = this.changeSearchType.bind(this);
@@ -39,6 +40,10 @@ class App extends React.Component {
          onset: '確診日期',
          married: '婚姻狀況' 
     };
+  }
+  incrementTableKey = () => {
+    this.state.table_key++;
+    return this.state.table_key;
   }
   postForm(event, search_value, search_type) {
     // console.log(typeof(this.timeline_element));
@@ -79,7 +84,6 @@ class App extends React.Component {
    gotinfo = () => {
     var outputStyle = {marginTop: "5vh", fontSize:"5vh", marginLeft:"3vh"}
     var gotStyle = {marginTop: "5vh", fontSize:"3vh", marginLeft:"3vh"}
-      console.log("here", this.state.noinfo);
       if (this.state.noinfo){
         if (this.state.stable_type == 'id'){
           return <p style={outputStyle}>找不到此ID: {this.state.stable_value}</p>;
@@ -91,9 +95,10 @@ class App extends React.Component {
         if (this.state.stable_type == 'id'){
           return <Timeline json={this.state.return_json}/>;
         }else{
+          this.incrementTableKey();
           return ([
             <p style={gotStyle}>依 {this.information_chinese[this.state.stable_type]} 搜尋: {this.state.stable_value}</p>,
-            <SelectTable json={this.state.return_json} postForm={this.postForm}/>
+            <SelectTable json={this.state.return_json} postForm={this.postForm} key={this.state.table_key}/>
             ])
         }
       }

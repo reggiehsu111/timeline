@@ -5,7 +5,8 @@ class SelectTable extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            id_names: this.props.json.id_names
+            id_names: this.props.json.id_names,
+            key: this.props.key
         };
     }
 
