@@ -15,8 +15,8 @@ client.connect(function(err) {
     console.log("Connected correctly to server");
     const db = client.db(dbName);
     const col = db.collection(colName);
-    var search_type = "gender";
-    var search_value = "狗";
+    var search_type = "id";
+    var search_value = "00000004";
     var query = {};
     if (search_type === "id") {
         query[search_type] = search_value;
@@ -190,29 +190,29 @@ function get_summary2(sick_list, activity_list) {
 
 function get_summary3(dict) {
     var close_contact = dict.contactor.close_contactor;
-    var para = ";"
+    var list = []
     if (close_contact.length != 0) {
-        para = "本案例近期接觸過：";
+        list.push("本案例近期接觸過：");
         for (var i = 0; i < close_contact.length; i++) {
             var group = close_contact[i];
-            para += `${group.type}`
+            var str = `${group.type}`
             if ("number" in group) {
-                para += `${group.number}名`
+                str += `${group.number}名`
             }
             if ("symptom_count" in group) {
-                para += `，其中${group.symptom_count}人有不適症狀`
+                str += `，其中${group.symptom_count}人有不適症狀`
             }
             if ("fever_count" in group) {
-                para += `、${group.fever_count}人發燒`;
+                str += `、${group.fever_count}人發燒`;
             }
             if ("note" in group) {
-                para += `，備註：「${group.note}」`;
+                str += `，備註：「${group.note}」`;
             }
-            para += "。";
-            
+            str += "。";
+            list.push(str);
         }
     }
-    return para;
+    return list;
 }
 
 function parse_information (time_list, dict) {
