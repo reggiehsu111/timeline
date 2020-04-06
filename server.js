@@ -43,6 +43,10 @@ app.post('/form-submit-url', function (req, res) {
         if (search_type === "id") {
             query[search_type] = search_value;
             col.find(query).toArray().then(function(result) {
+                // use sort in Mongo api somehow lead to bug.
+                result.sort(function(a,b){
+                    return doc_cmp(a, b, "_id", -1);
+                });
                 console.log(result[0]);
                 if(result[0]===undefined){
                     res.send(null);
@@ -87,6 +91,10 @@ app.post('/form-submit-url', function (req, res) {
                 // result[x].id = "00000000"
                 // result[x].information.name = "name"
                 // if db doesn't contain any object fits the query, result = []
+                // use sort in Mongo api somehow lead to bug.
+                result.sort(function(a,b) {
+                    return doc_cmp(a, b, "id", 1);
+                });
                 const response = {
                     id_names: result,
                 }
@@ -384,5 +392,14 @@ function list_compare(a, b) {
             return 1;
         default:
             return -1;
+    }
+}
+
+function doc_cmp(a, b, key, order) {
+    switch(a[key] > b[key]) {
+        case true:
+            return order;
+        default:
+            return -order;
     }
 }
