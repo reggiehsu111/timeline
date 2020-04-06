@@ -113,8 +113,7 @@ class CustomForm extends React.Component{
 	          </label>
 
 	          
-	          <p style={textStyle}>請依ID搜尋 </p>
-	          <p style={textStyle}> (8位數字) </p>
+	          <p style={textStyle}>請選擇搜尋欄位</p>
 	          <input type="submit" value="搜尋" style={{fontSize:"3vh"}}/>
 	        </form>
 		);
