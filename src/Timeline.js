@@ -70,28 +70,19 @@ class Timeline extends React.Component{
 			if (this.state.show_subtitle == true) this.setState({show_subtitle: false});
 			var json = this.state.json.dict;
 			this.increment_key();
-			blocks.push(<BasicInfo 
+			blocks.push(<div style={{width:"60%", float:"left"}}>,<BasicInfo 
 				information={json.information}
 				health_condition={json.health_condition}
 				contactor={json.contactor}
 				source={json.source}
 				summary={this.state.summary}
 				key={this.state.key}
-			/>);
-			// for (var i=0; i< contactor.public_area.length; i++){
-			// 	this.increment_key();
-			// 	blocks.push(<Timeline_block 
-			// 		ref={this.myRef} 
-			// 		city={contactor.public_area[i].city}
-			// 		location = {contactor.public_area[i].location}
-			// 		time={contactor.public_area[i].time}
-			// 		transportation={contactor.public_area[i].transportation}
-			// 		key={this.state.key}
-			// 	/>);
-			// }
+			/>,</div>);
+
+			var sub_blocks = [];
 			for (var i=0; i<this.state.time_info.length; i++){
 				this.increment_key();
-				blocks.push(
+				sub_blocks.push(
 					<Timeline_block 
 						ref={this.myRef}
 						time={this.state.time_info[i].date}
@@ -100,6 +91,11 @@ class Timeline extends React.Component{
 					/>
 				);
 			}
+			blocks.push(
+				<div style={{width:"40%", float:"right"}}>,
+				{sub_blocks},
+				</div>
+			)
 			// console.log(blocks);
 		}
 		return blocks;
