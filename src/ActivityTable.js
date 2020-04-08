@@ -35,16 +35,26 @@ class ActivityTable extends React.Component{
         }
         return blocks;
     }
+    insertTable = () => {
+    	var blocks = [];
+    	if (this.state.activityList.length==0){
+    		return <div></div>
+    	}else{
+    		return (
+    			<table id="activity_table">
+	              <tr>
+	                <th>距離確診天數</th>
+	                <th>日期</th> 
+	                <th>事件</th> 
+	              </tr>
+	              {this.insertContents()}
+	            </table>
+    			)
+    	}
+    }
     render(){
         return (
-          <table id="activity_table">
-              <tr>
-                <th>距離發病天數</th>
-                <th>日期</th> 
-                <th>事件</th> 
-              </tr>
-              {this.insertContents()}
-            </table>
+          this.insertTable()
         )
     }
 }

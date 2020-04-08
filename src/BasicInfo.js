@@ -91,7 +91,7 @@ class BasicInfo extends React.Component{
 		if (this.state.expand_close_contactor){
 			blocks.push(
 				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}>接觸者調查</h1>,
-				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_contactor} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> close </p>,
+				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_contactor} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
             );
             blocks.push(<br></br>);
@@ -117,7 +117,7 @@ class BasicInfo extends React.Component{
 		if (this.state.expand_info){
 			blocks.push([
 				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}> 基本資料</h1>,
-				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_info} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> close </p>,
+				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_info} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
             	]
             );
@@ -139,7 +139,7 @@ class BasicInfo extends React.Component{
 		if (this.state.expand_health){
 			blocks.push([
 				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}> 臨床狀況</h1>,
-				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_health} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> close </p>,
+				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_health} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
             	]
             );
@@ -173,7 +173,7 @@ class BasicInfo extends React.Component{
 		if(this.state.expand_source){
 			blocks.push(
 				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}> 暴露來源調查</h1>,
-				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_source} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> close </p>,
+				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_source} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
 			);
 			blocks.push(<br></br>);
@@ -206,7 +206,7 @@ class BasicInfo extends React.Component{
 		if (this.state.expand_summary){
 			blocks.push(
 				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}> 概述</h1>,
-				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_summary} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> close </p>,
+				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_summary} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
             );
             // console.log(this.state.summary.summary_part2);
@@ -240,7 +240,7 @@ class BasicInfo extends React.Component{
 		if (this.state.expand_activity){
 			return([
 				<h1 style={{fontSize: "4vh", width:"80%", float:"left", marginBottom:"5vh"}}> 活動史</h1>,
-				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_activity} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> close </p>,
+				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_activity} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<ActivityTable style={{marginTop:"5vh"}} activityList={this.state.summary.summary_part2.activity_info}/>
 			]);
 		}else{
