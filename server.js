@@ -45,7 +45,7 @@ app.post('/form-submit-url', function (req, res) {
             col.find(query).toArray().then(function(result) {
                 // use sort in Mongo api somehow lead to bug.
                 result.sort(function(a,b){
-                    return doc_cmp(a, b, "_id", -1);
+                    return doc_cmp(a, b, "timestamp", -1);
                 });
                 console.log(result[0]);
                 if(result[0]===undefined){

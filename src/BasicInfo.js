@@ -67,10 +67,10 @@ class BasicInfo extends React.Component{
 			for (let [key, value] of Object.entries(this.state.contactor)) {
 			  blocks.push(<p className="basic-info-text">{key}:</p>)
 				for (var i=0; i<value.length; i++){
-						for (let [key1, value1] of Object.entries(value[i])){
-							blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">   {key1}: {value1}</p>);
-						}
+					for (let [key1, value1] of Object.entries(value[i])){
+						blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">   {key1}: {value1}</p>);
 					}
+				}
 			}
 			blocks.push(<br></br>)
 		} else{
@@ -171,7 +171,7 @@ class BasicInfo extends React.Component{
             // console.log(this.state.summary.summary_part2);
 			blocks.push(<p className="basic-info-text">{this.state.summary.summary_part1}</p>);
 			if (this.state.summary.summary_part2.sick_history_info.length > 0){
-				blocks.push(<p className="basic-info-text">============== 病程史 ==============</p>);
+				blocks.push(<p className="basic-info-text">======= 病程史 =======</p>);
 				for (var i=0; i<this.state.summary.summary_part2.sick_history_info.length; i++){
 					var sick_info = this.state.summary.summary_part2.sick_history_info[i];
 					blocks.push(
@@ -182,7 +182,7 @@ class BasicInfo extends React.Component{
 			}
 			blocks.push(<br></br>)
 			if (this.state.summary.summary_part2.activity_info.length > 0){
-				blocks.push(<p className="basic-info-text">============== 活動史 ==============</p>);
+				blocks.push(<p className="basic-info-text">======= 活動史 =======</p>);
 				for (var i=0; i<this.state.summary.summary_part2.activity_info.length; i++){
 					var activity_info = this.state.summary.summary_part2.activity_info[i];
 					// console.log("activity_info length:", activity_info.event.legnth)
@@ -195,7 +195,10 @@ class BasicInfo extends React.Component{
 				}
 				blocks.push(<br></br>);
 			}
-			blocks.push(<p className="basic-info-text">{this.state.summary.summary_part3}</p>);
+			for (var i=0; i<this.state.summary.summary_part3.length; i++){
+				blocks.push(<p className="basic-info-text">{this.state.summary.summary_part3[i]}</p>)
+			}
+			// blocks.push(<p className="basic-info-text">{this.state.summary.summary_part3}</p>);
 			blocks.push(<br></br>)
 		} else{
 			blocks.push(
