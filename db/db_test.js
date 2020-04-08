@@ -16,7 +16,7 @@ client.connect(function(err) {
     const db = client.db(dbName);
     const col = db.collection(colName);
     var search_type = "id";
-    var search_value = "01234567";
+    var search_value = "66666666";
     var query = {};
     if (search_type === "id") {
         query[search_type] = search_value;
@@ -31,12 +31,13 @@ client.connect(function(err) {
             client.close();
             var [time_info, sick_history_list, activity_list] = get_time(dict);
             // console.log(sick_history_list, activity_list)
-            var summary_part1 = get_summary1(dict);
-            var summary_part2 = get_summary2(sick_history_list, activity_list);
-            var summary_part3 = get_summary3(dict);
+            // var summary_part1 = get_summary1(dict);
+            // var summary_part2 = get_summary2(sick_history_list, activity_list);
+            // var summary_part3 = get_summary3(dict);
             // console.log(summary_part1);
             // console.log(summary_part2);
             // console.log(summary_part3);
+            console.log(activity_list);
             var chinese_dict = to_chinese(dict);
             // console.log(chinese_dict);
         });
@@ -66,8 +67,9 @@ function get_time(dict){
     var activity_list = [];
     parse_information(sick_history_list, dict);
     parse_health_condition(sick_history_list, dict);
-    parse_source(activity_list, dict);
-    parse_contactor(activity_list, dict);
+    // parse_source(activity_list, dict);
+    // parse_contactor(activity_list, dict);
+    parse_activity(activity_list, dict);
     sick_history_list.sort(function(a, b){ 
         return list_compare(a,b);
     });
@@ -84,6 +86,15 @@ function get_time(dict){
     time_list.sort(function(a,b){
         return list_compare(a,b);
     });
+
+    // add diff day
+    const onset_date = new Date(dict.information.onset);
+    activity_list.forEach(function(time_obj){
+        let date = new Date(time_obj.time);
+        const diffTime = Math.abs(onset_date - date);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        time_obj["diff_day"] = diffDays;
+    })
     return [time_list, sick_history_list, activity_list];
 }
 
@@ -324,6 +335,51 @@ function parse_contactor (time_list, dict) {
             check_and_insert(time_obj, time_list);
         } while (area.end_date !== "" && t.getDate() < t2.getDate());
     } 
+}
+
+function parse_activity (activity_list, dict) {
+    var details = dict.activity.activity_detail
+    var activity_dict = {}
+    for (var i = 0; i < details.length; i++) {
+        var detail = details[i];
+        var event = {};
+        ["start_time", "end_time", "description"].forEach(function(value){
+            if (value in detail) {
+                event[value] = detail[value];
+            }
+        });
+        if (detail.date in activity_dict) {
+            activity_dict[detail.date].push(event);
+        } else {
+            activity_dict[detail.date] = [event];
+        }
+    }
+
+    // dict to list and event obj to string
+    for (let key in activity_dict) {
+        activity_dict[key].sort(function(a, b) {
+            if (!("start_time" in b)) {
+                return 1;
+            } else if (!("start_time" in a)){
+                return -1;
+            }
+            if (a.start_time > b.start_time) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        let time_obj = {"time": key, "event": []};
+        activity_dict[key].forEach(function(value) {
+            let event_str = "";
+            if ("start_time" in value && "end_time" in value) {
+                event_str += `${value["start_time"]}~${value["end_time"]}`;
+            }
+            event_str += value["description"];
+            time_obj["event"].push(event_str);
+        })
+        activity_list.push(time_obj);
+    }
 }
 
 function check_and_insert(time_obj, time_list) {
