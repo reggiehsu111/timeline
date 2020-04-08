@@ -24,3 +24,29 @@
   background-color: #576E86;
   color: white;
 }
+
+#select_table {
+  border-collapse: collapse;
+  width: 100%;
+  margin:0 auto;
+  justify-content: center;
+  font-size: 3vh;
+  margin-top:2vh;
+  margin-bottom: 5vh;
+}
+
+#activity_table td, #acvitity_table th {
+  font-size:3vh;
+  border: 1px solid #ddd;
+  padding: 8px;
+  width: 100%;
+}
+
+#activity_table th {
+  font-size:3vh;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #576E86;
+  color: white;
+}
