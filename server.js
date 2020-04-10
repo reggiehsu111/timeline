@@ -420,6 +420,8 @@ function parse_activity (activity_list, dict) {
             let event_str = "";
             if ("start_time" in value && "end_time" in value) {
                 event_str += `${value["start_time"]}~${value["end_time"]}`;
+            } else if ("start_time" in value) {
+                event_str += `${value["start_time"]}`;
             }
             event_str += value["description"];
             time_obj["event"].push(event_str);
