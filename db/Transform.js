@@ -12,7 +12,7 @@ const transform = {
         "contact": "聯絡方式",
         "occupation": "職業",
         "med_title": "是否為醫療人員",
-        "onset": "確診日期",
+        "onset": "發病日期",
         "married": "婚姻狀況",
         "inv_date": "調查日期",
         "inv_person": "調查人"   

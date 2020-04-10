@@ -90,7 +90,7 @@ function get_time(dict){
     // add diff day
     const onset_date = new Date(dict.information.onset);
     activity_list.forEach(function(time_obj){
-        let date = new Date(time_obj.time);
+        let date = new Date(time_obj.date);
         const diffTime = date - onset_date;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         time_obj["diff_day"] = diffDays;
@@ -244,7 +244,7 @@ function parse_information (time_list, dict) {
     var info = dict.information;
     time_obj = {"date": info.report_date, "event": ["通報"]};
     check_and_insert(time_obj, time_list);
-    time_obj = {"date": info.onset, "event": ["確診"]};
+    time_obj = {"date": info.onset, "event": ["發病"]};
     check_and_insert(time_obj, time_list);
     
 }
@@ -370,7 +370,7 @@ function parse_activity (activity_list, dict) {
                 return -1;
             }
         });
-        let time_obj = {"time": key, "event": []};
+        let time_obj = {"date": key, "event": []};
         activity_dict[key].forEach(function(value) {
             let event_str = "";
             if ("start_time" in value && "end_time" in value) {
