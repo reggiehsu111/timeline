@@ -16,7 +16,7 @@ client.connect(function(err) {
     const db = client.db(dbName);
     const col = db.collection(colName);
     var search_type = "id";
-    var search_value = "66666666";
+    var search_value = "00000000";
     var query = {};
     if (search_type === "id") {
         query[search_type] = search_value;
@@ -37,7 +37,7 @@ client.connect(function(err) {
             // console.log(summary_part1);
             // console.log(summary_part2);
             // console.log(summary_part3);
-            console.log(activity_list);
+            console.log(time_info);
             var chinese_dict = to_chinese(dict);
             // console.log(chinese_dict);
         });
@@ -91,7 +91,7 @@ function get_time(dict){
     const onset_date = new Date(dict.information.onset);
     activity_list.forEach(function(time_obj){
         let date = new Date(time_obj.time);
-        const diffTime = Math.abs(onset_date - date);
+        const diffTime = date - onset_date;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         time_obj["diff_day"] = diffDays;
     })
@@ -338,6 +338,7 @@ function parse_contactor (time_list, dict) {
 }
 
 function parse_activity (activity_list, dict) {
+    if (! ("activity" in dict)) return 
     var details = dict.activity.activity_detail
     var activity_dict = {}
     for (var i = 0; i < details.length; i++) {

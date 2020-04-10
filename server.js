@@ -136,7 +136,7 @@ function get_time(dict){
     const onset_date = new Date(dict.information.onset);
     activity_list.forEach(function(time_obj){
         let date = new Date(time_obj.time);
-        const diffTime = Math.abs(onset_date - date);
+        const diffTime = date - onset_date;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         time_obj["diff_day"] = diffDays;
     })
@@ -383,6 +383,7 @@ function parse_contactor (time_list, dict) {
 }
 
 function parse_activity (activity_list, dict) {
+    if (! ("activity" in dict)) return 
     var details = dict.activity.activity_detail
     var activity_dict = {}
     for (var i = 0; i < details.length; i++) {
