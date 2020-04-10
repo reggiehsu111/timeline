@@ -36,14 +36,14 @@
 }
 
 #activity_table td, #acvitity_table th {
-  font-size:3vh;
+  font-size:2vh;
   border: 1px solid #ddd;
   padding: 8px;
   width: 100%;
 }
 
 #activity_table th {
-  font-size:3vh;
+  font-size:2vh;
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
