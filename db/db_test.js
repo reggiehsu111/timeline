@@ -15,7 +15,7 @@ client.connect(function(err) {
     console.log("Connected correctly to server");
     const db = client.db(dbName);
     const col = db.collection(colName);
-    var search_type = "id";
+    var search_type = "all";
     var search_value = "00000000";
     var query = {};
     if (search_type === "id") {
@@ -40,6 +40,17 @@ client.connect(function(err) {
             console.log(time_info);
             var chinese_dict = to_chinese(dict);
             // console.log(chinese_dict);
+        });
+    } else if (search_type === "all"){
+        col.find({}).project({ "id": 1, "information.name": 1, "_id": -1 }).toArray().then(function(result) {
+            result.sort(function(a,b) {
+                return doc_cmp(a, b, "id", 1);
+            });
+            result.forEach(function(item, index) {
+                delete item._id;
+            })
+            console.log(result);
+            client.close();
         });
     } else {
         var key = `information.${search_type}`;

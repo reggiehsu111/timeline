@@ -80,8 +80,18 @@ app.post('/form-submit-url', function (req, res) {
                     res.send(response);
                 }
             });
-        }
-        else {
+        } else if (search_type === "all"){
+            col.find({}).project({ "id": 1, "information.name": 1, "_id": -1 }).toArray().then(function(result) {
+                result.sort(function(a,b) {
+                    return doc_cmp(a, b, "id", 1);
+                });
+                result.forEach(function(item, index) {
+                    delete item._id;
+                })
+                console.log(result);
+                client.close();
+            });
+        } else {
             var key = `information.${search_type}`;
             query[key] = search_value;
             col.find(query).project({ "id": 1, "information.name": 1, "_id": 0 }).toArray().then(function(result) {
