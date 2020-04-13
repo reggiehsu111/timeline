@@ -15,8 +15,8 @@ client.connect(function(err) {
     console.log("Connected correctly to server");
     const db = client.db(dbName);
     const col = db.collection(colName);
-    var search_type = "all";
-    var search_value = "00000000";
+    var search_type = "id";
+    var search_value = "11011000";
     var query = {};
     if (search_type === "id") {
         query[search_type] = search_value;
@@ -37,7 +37,9 @@ client.connect(function(err) {
             // console.log(summary_part1);
             // console.log(summary_part2);
             // console.log(summary_part3);
-            console.log(time_info);
+            // console.log(time_info);
+            console.log(sick_history_list);
+            console.log(activity_list);
             var chinese_dict = to_chinese(dict);
             // console.log(chinese_dict);
         });
@@ -100,6 +102,12 @@ function get_time(dict){
 
     // add diff day
     const onset_date = new Date(dict.information.onset);
+    sick_history_list.forEach(function(time_obj){
+        let date = new Date(time_obj.date);
+        const diffTime = date - onset_date;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        time_obj["diff_day"] = diffDays;
+    })
     activity_list.forEach(function(time_obj){
         let date = new Date(time_obj.date);
         const diffTime = date - onset_date;
@@ -266,12 +274,16 @@ function parse_health_condition (time_list, dict) {
     var see_doc = h_cond.seeing_doctor;
     var time_obj;
     for (var i = 0; i < symptom.length; i++) { 
-        time_obj = {"date": symptom[i].date, "event": [symptom[i].name.replace("其他：", "")]};
-        check_and_insert(time_obj, time_list);
+        if ("date" in symptom[i]) {
+            time_obj = {"date": symptom[i].date, "event": [symptom[i].name.replace("其他：", "")]};
+            check_and_insert(time_obj, time_list);
+        }
     } 
     for (var i = 0; i < see_doc.length; i++) { 
-        time_obj = {"date": see_doc[i].date, "event": [see_doc[i].name.replace("其他：", "")+see_doc[i].type]};
-        check_and_insert(time_obj, time_list);
+        if ("date" in symptom[i]) {
+            time_obj = {"date": see_doc[i].date, "event": [see_doc[i].name.replace("其他：", "")+see_doc[i].type]};
+            check_and_insert(time_obj, time_list);
+        }
     } 
 }
 
@@ -342,8 +354,8 @@ function parse_contactor (time_list, dict) {
                     .toISOString()
                     .split("T")[0];
             var time_obj = {"date": dateString, "event": [event_string]};
-            t.setDate(t.getDate()+1);
             check_and_insert(time_obj, time_list);
+            t.setDate(t.getDate()+1);
         } while (area.end_date !== "" && t.getDate() < t2.getDate());
     } 
 }
