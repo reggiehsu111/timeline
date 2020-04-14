@@ -88,8 +88,11 @@ app.post('/form-submit-url', function (req, res) {
                 result.forEach(function(item, index) {
                     delete item._id;
                 })
-                console.log(result);
-                client.close();
+                // console.log(result);
+                const response = {
+                    id_names: result,
+                }
+                res.send(response);
             });
         } else {
             var key = `information.${search_type}`;
@@ -134,9 +137,11 @@ function get_time(dict){
     var time_list = [];
     for (var i = 0; i < sick_history_list.length; i++) {
         check_and_insert(sick_history_list[i], time_list);
+
     }
     for (var i = 0; i < activity_list.length; i++) {
         check_and_insert(activity_list[i], time_list);
+
     }
     time_list.sort(function(a,b){
         return list_compare(a,b);
@@ -303,9 +308,9 @@ function get_summary3(dict) {
 function parse_information (time_list, dict) {
     var time_obj;
     var info = dict.information;
-    time_obj = {"date": info.report_date, "event": ["通報"]};
+    time_obj = {"date": info.report_date, "event": ["通報"], "sick": 1};
     check_and_insert(time_obj, time_list);
-    time_obj = {"date": info.onset, "event": ["發病"]};
+    time_obj = {"date": info.onset, "event": ["發病"], "sick": 1};
     check_and_insert(time_obj, time_list);
     
 }

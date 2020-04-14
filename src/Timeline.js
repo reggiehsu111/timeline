@@ -22,7 +22,7 @@ class Timeline extends React.Component{
 	}
 	componentWillReceiveProps(nextProps){
 	    if(nextProps.json!==this.props.json){
-	      this.setState({json :nextProps.json, time_info: nextProps.json.time_info, summary: nextProps.json.summary});
+	      this.setState({json :nextProps.json, summary: nextProps.json.summary});
 	    }
 	  }
 	initialize = () => {
@@ -60,9 +60,33 @@ class Timeline extends React.Component{
 		this.state.key ++;
 		return this.state.key;
 	}
+	combine_infos = (activity_info, sick_info) => {
+		for (var i=0; i<activity_info.length; i++){
+			activity_info[i].sick = 0;
+		}
+		for (var i=0; i<sick_info.length; i++){
+			sick_info[i].sick = 1;
+		}
+		var time_list = activity_info.concat(sick_info);
+		time_list.sort(function(a,b){
+		    switch (a.date > b.date) {
+		        case true:
+		            return 1;
+		        default:
+		            return -1;
+		    };
+	    })
+		return time_list
+	}
 
 	display_timeline_block = () => {
+		var activity_info, sick_info, time_list=[];
 		var blocks = [];
+		if (this.state.summary !== undefined){
+			activity_info = this.state.summary.summary_part2.activity_info;
+			sick_info = this.state.summary.summary_part2.sick_history_info;
+			time_list = this.combine_infos(activity_info, sick_info);
+		}
 		if (Object.keys(this.state.json).length===0 && this.state.json.constructor===Object){
 			return <div></div>;
 		}
@@ -80,17 +104,28 @@ class Timeline extends React.Component{
 			/>,</div>);
 
 			var sub_blocks = [];
-			for (var i=0; i<this.state.time_info.length; i++){
+			for (var i=0; i<time_list.length; i++){
 				this.increment_key();
 				sub_blocks.push(
 					<Timeline_block 
 						ref={this.myRef}
-						time={this.state.time_info[i].date}
-						event={this.state.time_info[i].event}
+						time={time_list[i].date}
+						event={time_list[i].event}
+						sick={time_list[i].sick}
 						key={this.state.key}
 					/>
 				);
 			}
+			blocks.push(
+				<div style={{width:"40%", float:"right"}}>
+					<div style={{width:"10%", float:"left"}}>
+						<span className="dot-sick"></span><p>病程史</p>
+					</div>
+					<div style={{width:"90%", float:"right"}}>
+						<span className="dot-not-sick"></span><p>活動史</p>
+					</div>
+				</div>
+			);
 			blocks.push(
 				<div style={{width:"40%", float:"right"}}>,
 				{sub_blocks},

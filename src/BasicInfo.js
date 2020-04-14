@@ -290,11 +290,11 @@ class BasicInfo extends React.Component{
         		<div style={healthStyle} onMouseEnter={this.toggleHoverHealth} onMouseLeave={this.toggleHoverHealth}>
         			{this.InsertHealthCondition()}
         		</div>
-        		<div style={contactorStyle} onMouseEnter={this.toggleHoverContactor} onMouseLeave={this.toggleHoverContactor}>
-        			{this.InsertCloseContactor()}
-        		</div>
         		<div style={sourceStyle} onMouseEnter={this.toggleHoverSource} onMouseLeave={this.toggleHoverSource}>
         			{this.InsertSource()}
+        		</div>
+        		<div style={contactorStyle} onMouseEnter={this.toggleHoverContactor} onMouseLeave={this.toggleHoverContactor}>
+        			{this.InsertCloseContactor()}
         		</div>
         		<div style={summaryStyle} onMouseEnter={this.toggleHoverSummary} onMouseLeave={this.toggleHoverSummary}>
         			{this.InsertSummary()}

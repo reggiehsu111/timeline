@@ -10,37 +10,13 @@ class Timeline_block extends React.Component{
 		this.state = {
 			location: this.props.location,
 			time: this.props.time,
+			sick: this.props.sick,
 			city: this.props.city,
 			event: this.props.event,
 			transportation: this.props.transportation,
-			hover: false,
-			expand: false,
 			key: this.props.key
 		};
 		this.myRef = React.createRef();
-	}
-	toggleHover = () => {
-		this.setState({hover: !this.state.hover});
-	}
-	handleClick = () => {
-		this.setState({expand: !this.state.expand});
-	}
-	expand = () => {
-		var expandStyle = {
-			fontSize: "15px"
-		}
-		if (this.state.expand){
-			return [
-				<p style={expandStyle}>{this.state.time}</p>,
-				<p style={expandStyle}>城市: {this.state.city}</p>, 
-				<p style={expandStyle}>交通方式: {this.state.transportation}</p>
-			];
-		}else{
-			return [<p>
-                    <span className="cd-date">{this.state.time}</span>
-                    </p>,
-                    <br></br>]
-		}
 	}
 	insertEvent = () => {
 		var blocks = [];
@@ -51,21 +27,29 @@ class Timeline_block extends React.Component{
 			}
 		return blocks;
 	}
+	setClassName = () => {
+		if (this.state.sick){
+			return "cd-timeline-content sick";
+		}else{
+			return "cd-timeline-content";
+		}
+	}
 	render(){
 		var blockid, textStyle;
 		   	blockid = "cd-timeline-content";
 		    textStyle = {fontWeight:"normal"};
+		console.log(this.state.sick);
 		   // if (this.state.expand){
 		   // 	textStyle = Object.assign({}, textStyle, {height:"20vh", fontSize:"20px"});
 		   // }else{
 		   // 	textStyle = Object.assign({}, textStyle, {height:"10vh"});
 		   // }
 		return(
-            <div style={textStyle} className="cd-timeline-block" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} onClick={this.handleClick}>
+            <div style={textStyle} className="cd-timeline-block">
                 <div style={textStyle} className="cd-timeline-img cd-picture">
                     <img src={iconApplication} alt="Picture"></ img>
                 </div>
-                <div style={textStyle} id={blockid} className="cd-timeline-content">
+                <div style={textStyle} id={blockid} className={this.setClassName()}>
                     <h4>{this.insertEvent()}</h4>
                     <p>
                     <span className="cd-date">{this.state.time}</span>

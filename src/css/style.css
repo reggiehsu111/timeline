@@ -256,13 +256,21 @@ header h1 {
   padding: 1em;
   box-shadow: 0 3px 0 #d7e4ed;
 }
+.sick {
+  position: relative;
+  margin-left: 60px;
+  background: #E6E6FA;
+  border-radius: 0.25em;
+  padding: 1em;
+  box-shadow: 0 3px 0 #9932CC;
+}
 #cd-timeline-content-hover {
   position: relative;
   margin-left: 60px;
   background: #E7F3F8;
   border-radius: 0.25em;
   padding: 1em;
-  box-shadow: 0 3px 0 #d7e4ed;
+  box-shadow: 0 3px 0 #D8BFD8;
 }
 .cd-timeline-content:after {
   content: "";
@@ -482,4 +490,18 @@ header h1 {
 .basic-info-text{
   width: 80%;
   font-size: medium;
+}
+.dot-sick{
+  height: 15px;
+  width: 15px;
+  background-color: #9932CC;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-not-sick{
+  height: 15px;
+  width: 15px;
+  background-color: #d7e4ed;
+  border-radius: 50%;
+  display: inline-block;
 }

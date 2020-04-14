@@ -10,15 +10,15 @@ class ActivityTable extends React.Component{
     }
 
     insertEvents = (events) => {
-    	var blocks = [];
-    	for (var i=0; i<events.length; i++){
-    		blocks.push(
-    		<tr>
-    			<td>{events[i]}</td>
-    		</tr>
-    		);
-    	}
-    	return blocks;
+        var blocks = [];
+        for (var i=0; i<events.length; i++){
+            blocks.push(
+            <tr>
+                <td>{events[i]}</td>
+            </tr>
+            );
+        }
+        return blocks;
     }
 
     insertContents = () => {
@@ -39,21 +39,21 @@ class ActivityTable extends React.Component{
         return blocks;
     }
     insertTable = () => {
-    	var blocks = [];
-    	if (this.state.activityList.length==0){
-    		return <div></div>
-    	}else{
-    		return (
-    			<table id="activity_table">
-	              <tr>
-	                <th>距離發病天數</th>
-	                <th>日期</th> 
-	                <th>事件</th> 
-	              </tr>
-	              {this.insertContents()}
-	            </table>
-    			)
-    	}
+        var blocks = [];
+        if (this.state.activityList.length==0){
+            return <div></div>
+        }else{
+            return (
+                <table id="activity_table">
+                  <tr>
+                    <th>距離發病天數</th>
+                    <th>日期</th> 
+                    <th>事件</th> 
+                  </tr>
+                  {this.insertContents()}
+                </table>
+                )
+        }
     }
     render(){
         console.log(this.state.activityList);

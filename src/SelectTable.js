@@ -30,17 +30,20 @@ class SelectTable extends React.Component{
         var blocks = [];
         var id, name;
         for (var i=0; i<this.state.id_names.length; i++){
-            blocks.push(
-            <tr id={this.state.id_names[i].id} onClick={this.handleClick}>
-                <td>{this.state.id_names[i].id}</td>
-                <td>{this.state.id_names[i].information.name}</td>
-            </tr>
-            )
+            if (this.state.id_names[i].id !== undefined){
+                blocks.push(
+                <tr id={this.state.id_names[i].id} onClick={this.handleClick}>
+                    <td>{this.state.id_names[i].id}</td>
+                    <td>{this.state.id_names[i].information.name}</td>
+                </tr>
+                )
+            }
         }
         return blocks;
     }
     render(){
         return (
+        <div style={{  marginLeft:"3vw", marginRight:"3vw"}}>
           <table id="select_table">
               <tr>
                 <th>ID</th>
@@ -48,6 +51,7 @@ class SelectTable extends React.Component{
               </tr>
               {this.insertContents()}
             </table>
+        </div>
         )
     }
 }

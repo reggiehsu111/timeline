@@ -43,6 +43,9 @@ class App extends React.Component {
         married: '婚姻狀況' 
     };
   }
+  componentDidMount(){
+    this.postForm(null, null, 'all');
+  }
   incrementTableKey = () => {
     this.state.table_key++;
     return this.state.table_key;
@@ -50,7 +53,7 @@ class App extends React.Component {
   postForm(event, search_value, search_type) {
     // console.log(typeof(this.timeline_element));
     var currentComponent = this;
-      if (event !== undefined){
+      if (event !== undefined && event !==null){
         event.preventDefault();
       }
       var data = this.state.search_value;
@@ -98,10 +101,18 @@ class App extends React.Component {
           return <Timeline json={this.state.return_json}/>;
         }else{
           this.incrementTableKey();
-          return ([
-            <p style={gotStyle}>依 {this.information_chinese[this.state.stable_type]} 搜尋: {this.state.stable_value}</p>,
-            <SelectTable json={this.state.return_json} postForm={this.postForm} key={this.state.table_key}/>
-            ])
+          if (this.state.stable_type == 'all'){
+            return ([
+                <p style={gotStyle}>全部ID</p>,
+                <SelectTable json={this.state.return_json} postForm={this.postForm} key={this.state.table_key}/>
+              ])
+          }
+          else{
+            return ([
+              <p style={gotStyle}>依 {this.information_chinese[this.state.stable_type]} 搜尋: {this.state.stable_value}</p>,
+              <SelectTable json={this.state.return_json} postForm={this.postForm} key={this.state.table_key}/>
+              ])
+          }
         }
       }
    }

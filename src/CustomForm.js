@@ -6,7 +6,8 @@ class CustomForm extends React.Component{
 		super(props);
 		this.state = {
 			search_type: "id",
-			search_value: 0
+			search_value: 0,
+			require_input: true
 		};
 		this.information_chinese = {
 			inv_date: '調查日期',
@@ -65,7 +66,7 @@ class CustomForm extends React.Component{
 	  }
 
 	 handleSelectChange = (event) => {
-	    this.setState({search_type: event.target.value});
+	    this.setState({search_type: event.target.value, require_input: true});
 	    this.props.changeSearchType(event.target.value);
 	    if (this.input_type[event.target.value] == 'options'){
 	    	this.setState({search_value: this.select_options[event.target.value][0]});
@@ -85,7 +86,7 @@ class CustomForm extends React.Component{
 
 	insertInput = () => {
 		if (this.input_type[this.state.search_type] !== 'options'){
-			return <input type={this.input_type[this.state.search_type]} style={this.input_style} required={true} onChange={this.props.changeHandler}/>
+			return <input type={this.input_type[this.state.search_type]} style={this.input_style} required={this.state.require_input} onChange={this.props.changeHandler}/>
 		}
 		else{
 			var blocks = [];
@@ -99,6 +100,10 @@ class CustomForm extends React.Component{
 				</select>
 			];
 		}
+	}
+	searchAll = () => {
+		this.setState({search_type: "all", require_input: false});
+	  	this.props.changeSearchType("all");
 	}
 	render(){
 		var textStyle = {fontSize:"2vh"}
@@ -114,7 +119,10 @@ class CustomForm extends React.Component{
 
 	          
 	          <p style={textStyle}>請選擇搜尋欄位</p>
-	          <input type="submit" value="搜尋" style={{fontSize:"3vh"}}/>
+	          <div style={{marginTop:"1vh"}}>
+		          <input type="submit" value="搜尋" style={{fontSize:"3vh", width:"10%"}}/>
+		          <input type="submit" value="所有資料" style={{fontSize:"3vh", marginLeft:"3vw", width:"10%"}} onClick={this.searchAll}/>
+	          </div>
 	        </form>
 		);
 	}
