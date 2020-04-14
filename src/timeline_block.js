@@ -38,7 +38,6 @@ class Timeline_block extends React.Component{
 		var blockid, textStyle;
 		   	blockid = "cd-timeline-content";
 		    textStyle = {fontWeight:"normal"};
-		console.log(this.state.sick);
 		   // if (this.state.expand){
 		   // 	textStyle = Object.assign({}, textStyle, {height:"20vh", fontSize:"20px"});
 		   // }else{
