@@ -15,7 +15,8 @@ const transform = {
         "onset": "發病日期",
         "married": "婚姻狀況",
         "inv_date": "調查日期",
-        "inv_person": "調查人"   
+        "inv_person": "調查人",
+        "inv_institution" : "調查單位"   
     },
     "health_condition": {
         "symptoms": {
