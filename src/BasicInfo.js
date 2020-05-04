@@ -8,6 +8,7 @@ class BasicInfo extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
+			id:this.props.id,
 			information: this.props.information,
 			health_condition: this.props.health_condition,
 			contactor: this.props.contactor,
@@ -122,6 +123,7 @@ class BasicInfo extends React.Component{
             	]
             );
             blocks.push(<br></br>);
+            blocks.push(<p className="basic-info-text">法傳編號: {this.state.id}</p>)
 			for (let [key, value] of Object.entries(this.state.information)) {
 			  blocks.push(<p className="basic-info-text">{key}: {value}</p>);
 			}

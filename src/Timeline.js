@@ -95,6 +95,7 @@ class Timeline extends React.Component{
 			var json = this.state.json.dict;
 			this.increment_key();
 			blocks.push(<div style={{width:"60%", float:"left"}}>,<BasicInfo 
+				id={json.id}
 				information={json.information}
 				health_condition={json.health_condition}
 				contactor={json.contactor}
