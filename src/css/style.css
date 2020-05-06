@@ -495,13 +495,11 @@ header h1 {
   height: 15px;
   width: 15px;
   background-color: #9932CC;
-  border-radius: 50%;
   display: inline-block;
 }
 .dot-not-sick{
   height: 15px;
   width: 15px;
   background-color: #d7e4ed;
-  border-radius: 50%;
   display: inline-block;
 }

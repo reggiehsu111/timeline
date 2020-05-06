@@ -118,11 +118,11 @@ class Timeline extends React.Component{
 				);
 			}
 			blocks.push(
-				<div style={{width:"40%", float:"right"}}>
-					<div style={{width:"10%", float:"left"}}>
+				<div style={{width:"20%", float:"right"}}>
+					<div style={{width:"20%", float:"left"}}>
 						<span className="dot-sick"></span><p>病程史</p>
 					</div>
-					<div style={{width:"90%", float:"right"}}>
+					<div style={{width:"80%", float:"right"}}>
 						<span className="dot-not-sick"></span><p>活動史</p>
 					</div>
 				</div>
