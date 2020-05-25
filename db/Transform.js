@@ -78,6 +78,7 @@ const transform = {
             "number": "總數",
             "symptom_count": "有症狀人數",
             "fever_count": "發燒人數",
+            "last_date": "最後接觸日期",
             "note": "備註"
         }
     }

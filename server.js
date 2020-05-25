@@ -137,11 +137,9 @@ function get_time(dict){
     var time_list = [];
     for (var i = 0; i < sick_history_list.length; i++) {
         check_and_insert(sick_history_list[i], time_list);
-
     }
     for (var i = 0; i < activity_list.length; i++) {
         check_and_insert(activity_list[i], time_list);
-
     }
     time_list.sort(function(a,b){
         return list_compare(a,b);
@@ -245,11 +243,13 @@ function get_summary1(dict) {
     var para = `案例${id}，${gender}，${nationality}，現職為${occupation}，${married}${pregnant}。`;
 
     if (chronic.length != 0) {
-        para += `該案患有${chronic[0].replace("其他，說明：", "")}`;
-        for (var i = 1; i < chronic.length; i++) { 
-            para += `、${chronic[i].replace("其他，說明：", "")}`;
-        } 
-        para += "。";
+        if (chronic[0] != "無") {
+            para += `該案患有${chronic[0].replace("其他，說明：", "")}`;
+            for (var i = 1; i < chronic.length; i++) { 
+                para += `、${chronic[i].replace("其他，說明：", "")}`;
+            } 
+            para += "。";
+        }
     }
     return para;
 }
@@ -327,7 +327,7 @@ function parse_health_condition (time_list, dict) {
         }
     } 
     for (var i = 0; i < see_doc.length; i++) { 
-        if ("date" in symptom[i]) {
+        if ("date" in see_doc[i]) {
             time_obj = {"date": see_doc[i].date, "event": [see_doc[i].name.replace("其他：", "")+see_doc[i].type]};
             check_and_insert(time_obj, time_list);
         }
@@ -448,7 +448,9 @@ function parse_activity (activity_list, dict) {
             } else if ("start_time" in value) {
                 event_str += `${value["start_time"]}`;
             }
-            event_str += value["description"];
+            if ("description" in value) { // Should not happen
+                event_str += value["description"];
+            }
             time_obj["event"].push(event_str);
         })
         activity_list.push(time_obj);
