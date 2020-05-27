@@ -25,6 +25,12 @@ class SelectTable extends React.Component{
         // );
 
     }
+    mouseEnter = () => {
+		document.body.style.cursor = "pointer";
+	}
+	mouseLeave = () => {
+		document.body.style.cursor = "default";
+	}
 
     insertContents = () => {
         var blocks = [];
@@ -32,7 +38,7 @@ class SelectTable extends React.Component{
         for (var i=0; i<this.state.id_names.length; i++){
             if (this.state.id_names[i].id !== undefined){
                 blocks.push(
-                <tr id={this.state.id_names[i].id} onClick={this.handleClick}>
+                <tr id={this.state.id_names[i].id} onClick={this.handleClick} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
                     <td>{this.state.id_names[i].id}</td>
                     <td>{this.state.id_names[i].information.name}</td>
                 </tr>

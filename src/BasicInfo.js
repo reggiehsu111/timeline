@@ -20,15 +20,15 @@ class BasicInfo extends React.Component{
 			expand_close_contactor: false,
 			expand_source: false,
 			expand_summary:false,
-			expand_activity:false,
-			hoverInfo: false,
-			hoverHealth: false,
-			hoverContactor: false,
-			hoverSummary: false,
-			hoverSource: false,
-			hoverActivity: false
+			expand_activity:false
 		};
 		this.myRef = React.createRef();
+	}
+	toggle_expand_contactor = () => {
+		if (this.state.expand_close_contactor == true){
+			this.mouseLeave();
+		}
+		this.setState({expand_close_contactor: !this.state.expand_close_contactor});
 	}
 	toggle_expand_info = () => {
 		if (this.state.expand_info == true){
@@ -60,27 +60,6 @@ class BasicInfo extends React.Component{
 		}
 		this.setState({expand_activity: !this.state.expand_activity});
 	}
-	toggleHoverInfo = () => {
-		this.setState({hoverInfo: !this.state.hoverInfo});
-	}
-	toggleHoverHealth = () => {
-		this.setState({hoverHealth: !this.state.hoverHealth});
-	}
-	toggleHoverSource = () => {
-		this.setState({hoverSource: !this.state.hoverSource});
-	}
-	toggle_expand_contactor = () => {
-		this.setState({expand_close_contactor: !this.state.expand_close_contactor});
-	}
-	toggleHoverContactor = () => {
-		this.setState({hoverContactor: !this.state.hoverContactor});
-	}
-	toggleHoverSummary = () => {
-		this.setState({hoverSummary: !this.state.hoverSummary});
-	}
-	toggleHoverActivity = () => {
-		this.setState({hoverActivity: !this.state.hoverActivity});
-	}
 	mouseEnter = () => {
 		document.body.style.cursor = "pointer";
 	}
@@ -91,7 +70,7 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if (this.state.expand_close_contactor){
 			blocks.push(
-				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}>接觸者調查</h1>,
+				<h1 style={{fontSize: "4vh", width:"80%", float:"left", fontWeight: "bold"}}>接觸者調查</h1>,
 				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_contactor} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
             );
@@ -100,14 +79,14 @@ class BasicInfo extends React.Component{
 			  blocks.push(<p className="basic-info-text">{key}:</p>)
 				for (var i=0; i<value.length; i++){
 					for (let [key1, value1] of Object.entries(value[i])){
-						blocks.push(<p style={{marginLeft:"2em"}} className="basic-info-text">   {key1}: {value1}</p>);
+						blocks.push(<p style={{marginLeft:"2em", fontWeight: "normal"}} className="basic-info-text">   {key1}: {value1}</p>);
 					}
 				}
 			}
 			blocks.push(<br></br>)
 		} else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}} onClick={this.toggle_expand_contactor}>接觸者調查</h1>,
+				<h1 style={{fontSize: "4vh" , fontWeight: "bold"}} onClick={this.toggle_expand_contactor} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>接觸者調查</h1>,
             	<br></br>
             );
 		}
@@ -117,7 +96,7 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if (this.state.expand_info){
 			blocks.push([
-				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}> 基本資料</h1>,
+				<h1 style={{fontSize: "4vh", width:"80%", float:"left", fontWeight: "bold"}}> 基本資料</h1>,
 				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_info} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
             	]
@@ -130,7 +109,7 @@ class BasicInfo extends React.Component{
 			blocks.push(<br></br>);
 		} else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}} onClick={this.toggle_expand_info} > 基本資料</h1>,
+				<h1 style={{fontSize: "4vh", fontWeight: "bold"}} onClick={this.toggle_expand_info} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 基本資料</h1>,
             	<br></br>
             );
 		}
@@ -140,7 +119,7 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if (this.state.expand_health){
 			blocks.push([
-				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}> 臨床狀況</h1>,
+				<h1 style={{fontSize: "4vh", width:"80%", float:"left", fontWeight: "bold"}}> 臨床狀況</h1>,
 				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_health} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
             	]
@@ -164,7 +143,7 @@ class BasicInfo extends React.Component{
 			blocks.push(<br></br>);
 		}else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}} onClick={this.toggle_expand_health}> 臨床狀況 </h1>,
+				<h1 style={{fontSize: "4vh", fontWeight: "bold"}} onClick={this.toggle_expand_health} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 臨床狀況 </h1>,
             	<br></br>
             );
 		}
@@ -174,7 +153,7 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if(this.state.expand_source){
 			blocks.push(
-				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}> 暴露來源調查</h1>,
+				<h1 style={{fontSize: "4vh", width:"80%", float:"left", fontWeight: "bold"}}> 暴露來源調查</h1>,
 				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_source} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
 			);
@@ -197,7 +176,7 @@ class BasicInfo extends React.Component{
 			blocks.push(<br></br>)
 		}else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}} onClick={this.toggle_expand_source}>暴露來源調查</h1>,
+				<h1 style={{fontSize: "4vh", fontWeight: "bold"}} onClick={this.toggle_expand_source} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>暴露來源調查</h1>,
             	<br></br>
             );
 		}
@@ -207,7 +186,7 @@ class BasicInfo extends React.Component{
 		var blocks = [];
 		if (this.state.expand_summary){
 			blocks.push(
-				<h1 style={{fontSize: "4vh", width:"80%", float:"left"}}> 概述</h1>,
+				<h1 style={{fontSize: "4vh", width:"80%", float:"left", fontWeight: "bold"}}> 概述</h1>,
 				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_summary} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<br></br>
             );
@@ -232,7 +211,7 @@ class BasicInfo extends React.Component{
 			blocks.push(<br></br>)
 		} else{
 			blocks.push(
-				<h1 style={{fontSize: "4vh"}} onClick={this.toggle_expand_summary}>概述</h1>,
+				<h1 style={{fontSize: "4vh", fontWeight: "bold"}} onClick={this.toggle_expand_summary} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>概述</h1>,
             	<br></br>
             );
 		}
@@ -241,68 +220,37 @@ class BasicInfo extends React.Component{
 	InsertActivity = () => {
 		if (this.state.expand_activity){
 			return([
-				<h1 style={{fontSize: "4vh", width:"80%", float:"left", marginBottom:"5vh"}}> 活動史</h1>,
+				<h1 style={{fontSize: "4vh", width:"80%", float:"left", marginBottom:"5vh", fontWeight: "bold"}}> 活動史</h1>,
 				<p style={{fontSize: "2vh", width:"20%", float:"right"}} onClick={this.toggle_expand_activity} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}> 關閉 </p>,
             	<ActivityTable style={{marginTop:"5vh"}} activityList={this.state.summary.summary_part2.activity_info}/>
 			]);
 		}else{
 			return([
-				<h1 style={{fontSize: "4vh"}} onClick={this.toggle_expand_activity}>活動史</h1>,
+				<h1 style={{fontSize: "4vh", fontWeight: "bold"}} onClick={this.toggle_expand_activity} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>活動史</h1>,
             	<br></br>
 			]);
 		}
 	}
 	render(){
-		var infoStyle, healthStyle, contactorStyle, summaryStyle, sourceStyle, activityStyle;
-		if (this.state.hoverInfo) {
-		     infoStyle = {fontWeight:"bold"};
-		   } else {
-		     infoStyle = {fontWeight:"normal"};
-		   }
-		if (this.state.hoverHealth) {
-		     healthStyle= {fontWeight:"bold"};
-		   } else {
-		     healthStyle = {fontWeight:"normal"};
-		   }
-		if (this.state.hoverContactor) {
-		     contactorStyle = {fontWeight:"bold"};
-		   } else {
-		     contactorStyle = {fontWeight:"normal"};
-		   }
-		if (this.state.hoverSummary) {
-		     summaryStyle = {fontWeight:"bold"};
-		   } else {
-		     summaryStyle = {fontWeight:"normal"};
-		   }
-		if (this.state.hoverSource) {
-		     sourceStyle = {fontWeight:"bold"};
-		   } else {
-		     sourceStyle = {fontWeight:"normal"};
-		   }
-		 if (this.state.hoverActivity) {
-		     activityStyle = {fontWeight:"bold"};
-		   } else {
-		     activityStyle = {fontWeight:"normal"};
-		   }
 		return(
             <div className="basic-info">
-            	<div style={infoStyle} onMouseEnter={this.toggleHoverInfo} onMouseLeave={this.toggleHoverInfo}>
+            	<div onMouseEnter={this.toggleHoverInfo} onMouseLeave={this.toggleHoverInfo}>
         			{this.InsertInformation()}
         		</div>
-        		<div style={healthStyle} onMouseEnter={this.toggleHoverHealth} onMouseLeave={this.toggleHoverHealth}>
+        		<div onMouseEnter={this.toggleHoverHealth} onMouseLeave={this.toggleHoverHealth}>
         			{this.InsertHealthCondition()}
         		</div>
-        		<div style={sourceStyle} onMouseEnter={this.toggleHoverSource} onMouseLeave={this.toggleHoverSource}>
+        		<div onMouseEnter={this.toggleHoverSource} onMouseLeave={this.toggleHoverSource}>
         			{this.InsertSource()}
         		</div>
-        		<div style={contactorStyle} onMouseEnter={this.toggleHoverContactor} onMouseLeave={this.toggleHoverContactor}>
+        		<div onMouseEnter={this.toggleHoverContactor} onMouseLeave={this.toggleHoverContactor}>
         			{this.InsertCloseContactor()}
         		</div>
-        		<div style={summaryStyle} onMouseEnter={this.toggleHoverSummary} onMouseLeave={this.toggleHoverSummary}>
+        		<div onMouseEnter={this.toggleHoverSummary} onMouseLeave={this.toggleHoverSummary}>
         			{this.InsertSummary()}
         			
         		</div>
-        		<div style={activityStyle} onMouseEnter={this.toggleHoverActivity} onMouseLeave={this.toggleHoverActivity}>
+        		<div onMouseEnter={this.toggleHoverActivity} onMouseLeave={this.toggleHoverActivity}>
         			{this.InsertActivity()}
         		</div>
 	        </div>

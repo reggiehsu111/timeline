@@ -91,7 +91,7 @@ class App extends React.Component {
     var gotStyle = {marginTop: "5vh", fontSize:"3vh", marginLeft:"3vh"}
       if (this.state.noinfo){
         if (this.state.stable_type == 'id'){
-          return <p style={outputStyle}>找不到此ID: {this.state.stable_value}</p>;
+          return <p style={outputStyle}>找不到此法傳編號: {this.state.stable_value}</p>;
         }else{
           return <p style={outputStyle}>找不到{this.information_chinese[this.state.stable_type]}: {this.state.stable_value}</p>;
         }
@@ -103,7 +103,7 @@ class App extends React.Component {
           this.incrementTableKey();
           if (this.state.stable_type == 'all'){
             return ([
-                <p style={gotStyle}>全部ID</p>,
+                <p style={gotStyle}>全部</p>,
                 <SelectTable json={this.state.return_json} postForm={this.postForm} key={this.state.table_key}/>
               ])
           }

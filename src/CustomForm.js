@@ -111,7 +111,7 @@ class CustomForm extends React.Component{
 			<form className="form-style-4" onSubmit={this.submitForm} onKeyDown={this._handleKeyDown}>
 	          <label >
 	          <select value={this.state.search_type} onChange={this.handleSelectChange}>
-				<option value="id" style={this.option_style}>ID</option>
+				<option value="id" style={this.option_style}>法傳編號</option>
 				{this.insertOptions()}
 			  </select>
 			  	{this.insertInput()}

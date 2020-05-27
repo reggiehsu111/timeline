@@ -230,7 +230,7 @@ function get_summary1(dict) {
     var married = dict.information.married;
     var chronic = dict.health_condition.chronic_disease;
 
-    if (nationality.endsWith("籍")) {
+    if (!nationality.endsWith("籍")) {
         nationality += "籍";
     }
 
