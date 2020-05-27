@@ -66,7 +66,9 @@ app.post('/form-submit-url', function (req, res) {
                     // console.log(summary_part1);
                     // console.log(summary_part2);
                     // console.log(summary_part3);
+                    add_age(dict);
                     var chinese_dict = to_chinese(dict);
+                    shift_chronic(chinese_dict);
                     console.log(chinese_dict);
                     const response = {
                         dict: chinese_dict,
@@ -160,6 +162,22 @@ function get_time(dict){
         time_obj["diff_day"] = diffDays;
     })
     return [time_list, sick_history_list, activity_list];
+}
+
+function add_age(dict) {
+    if ("birth_date" in dict.information) {
+        var birth_year = parseInt(dict.information.birth_date.substr(0,4), 10);
+        var today = new Date();
+        var year = today.getFullYear();
+        var age = year - birth_year;
+        dict.information.age = age;
+        console.log(dict.information.age)
+    }
+}
+
+function shift_chronic(chines_dict) {
+    chines_dict.information["慢性疾病紀錄"] = chines_dict.health_condition["慢性疾病紀錄"]
+    delete chines_dict.health_condition["慢性疾病紀錄"]
 }
 
 function to_chinese(dict) {

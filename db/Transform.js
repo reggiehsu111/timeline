@@ -17,7 +17,8 @@ const transform = {
         "inv_date": "調查日期",
         "inv_person": "調查人",
         "inv_institution" : "調查單位",
-        "pregnant_week" : "是否懷孕"
+        "pregnant_week" : "是否懷孕",
+        "age" : "年齡"
     },
     "health_condition": {
         "symptoms": {
