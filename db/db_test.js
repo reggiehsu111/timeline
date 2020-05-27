@@ -39,8 +39,10 @@ client.connect(function(err) {
             // console.log(summary_part3);
             // console.log(time_info);
             // console.log(sick_history_list);
-            console.log(activity_list);
+            // console.log(activity_list);
+            add_age(dict);
             var chinese_dict = to_chinese(dict);
+            shift_chronic(chinese_dict);
             // console.log(chinese_dict);
         });
     } else if (search_type === "all"){
@@ -117,6 +119,22 @@ function get_time(dict){
     return [time_list, sick_history_list, activity_list];
 }
 
+function add_age(dict) {
+    if ("birth_date" in dict.information) {
+        var birth_year = parseInt(dict.information.birth_date.substr(0,4), 10);
+        var today = new Date();
+        var year = today.getFullYear();
+        var age = year - birth_year;
+        dict.information.age = age;
+        console.log(dict.information.age)
+    }
+}
+
+function shift_chronic(chines_dict) {
+    chines_dict.information["慢性疾病紀錄"] = chines_dict.health_condition["慢性疾病紀錄"]
+    delete chines_dict.health_condition["慢性疾病紀錄"]
+}
+
 function to_chinese(dict) {
 
     var chines_dict = {
@@ -185,7 +203,7 @@ function get_summary1(dict) {
     var married = dict.information.married;
     var chronic = dict.health_condition.chronic_disease;
 
-    if (nationality.endsWith("籍")) {
+    if (!nationality.endsWith("籍")) {
         nationality += "籍";
     }
 
