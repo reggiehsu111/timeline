@@ -67,25 +67,40 @@ class Timeline extends React.Component{
 		for (var i=0; i<sick_info.length; i++){
 			sick_info[i].sick = 1;
 		}
-		var time_list = activity_info.concat(sick_info);
-		time_list.sort(function(a,b){
-		    switch (a.date > b.date) {
-		        case true:
-		            return 1;
-		        default:
-		            return -1;
-		    };
-	    })
-		return time_list
+		var time_dict = {};
+		for (var i=0; i<activity_info.length; i++){
+			time_dict[activity_info[i].date] = {"act":activity_info[i]};
+		}
+		for (var i=0; i<sick_info.length; i++){
+			if (sick_info[i].date in time_dict){
+				time_dict[sick_info[i].date].sick = sick_info[i];
+			}
+			else{
+				time_dict[sick_info[i].date] = {"sick":sick_info[i]};
+			}
+		}
+		// console.log(time_dict);
+		// var time_list = activity_info.concat(sick_info);
+		// time_list.sort(function(a,b){
+		//     switch (a.date > b.date) {
+		//         case true:
+		//             return 1;
+		//         default:
+		//             return -1;
+		//     };
+	 //    })
+		return time_dict
 	}
 
 	display_timeline_block = () => {
-		var activity_info, sick_info, time_list=[];
+		var activity_info, sick_info=[];
+		var time_dict = {};
 		var blocks = [];
 		if (this.state.summary !== undefined){
 			activity_info = this.state.summary.summary_part2.activity_info;
 			sick_info = this.state.summary.summary_part2.sick_history_info;
-			time_list = this.combine_infos(activity_info, sick_info);
+			time_dict = this.combine_infos(activity_info, sick_info);
+			// time_list = this.combine_infos(activity_info, sick_info);
 		}
 		if (Object.keys(this.state.json).length===0 && this.state.json.constructor===Object){
 			return <div></div>;
@@ -105,14 +120,13 @@ class Timeline extends React.Component{
 			/>,</div>);
 
 			var sub_blocks = [];
-			for (var i=0; i<time_list.length; i++){
+			for (let [key, value] of Object.entries(time_dict)){
 				this.increment_key();
 				sub_blocks.push(
 					<Timeline_block 
 						ref={this.myRef}
-						time={time_list[i].date}
-						event={time_list[i].event}
-						sick={time_list[i].sick}
+						time={key}
+						events={value}
 						key={this.state.key}
 					/>
 				);
