@@ -197,8 +197,14 @@ class BasicInfo extends React.Component{
 				blocks.push(<p className="basic-info-text">======= 病程史 =======</p>);
 				for (var i=0; i<this.state.summary.summary_part2.sick_history_info.length; i++){
 					var sick_info = this.state.summary.summary_part2.sick_history_info[i];
+					var events = '';
+					for (var j=0; j<sick_info.event.length-1; j++){
+						events += sick_info.event[j] + '、';
+					}
+					events += sick_info.event[sick_info.event.length - 1] + '。';
+					// console.log(events);
 					blocks.push(
-						<p className="basic-info-text">{sick_info.date}: {sick_info.event}</p>
+						<p className="basic-info-text">{sick_info.date}: {events}</p>
 					)
 					// console.log(this.state.summary.summary_part2.sick_history_info[i])
 				}
