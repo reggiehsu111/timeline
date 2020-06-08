@@ -46,11 +46,11 @@ class Timeline_block extends React.Component{
                 {this.state.time}
             </p>
 		</div>,
-		<div style={activity_style} className="activity">
-		{activity_blocks}
-		</div>,
 		<div style={sick_style} className="sick">
 		{sick_blocks}
+		</div>,
+		<div style={activity_style} className="activity">
+		{activity_blocks}
 		</div>
 		]
 		return blocks;
